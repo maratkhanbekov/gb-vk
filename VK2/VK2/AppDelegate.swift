@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  VK2
-//
-//  Created by Marat on 23.09.2020.
-//  Copyright © 2020 Marat. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
