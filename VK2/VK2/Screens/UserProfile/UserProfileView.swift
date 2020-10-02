@@ -2,15 +2,10 @@ import UIKit
 
 class UserProfileView: UIView {
     
-    let stackView = UIStackView()
-    
-    var getFriendsButton = UIButton()
-    var getPhotosButton = UIButton()
-    var getGroupsButton = UIButton()
-    
-    let searchGroupInput = TextField()
-    var searchGroupButton = UIButton()
-
+    var userPic = UIImageView()
+    var nameLabel = UILabel()
+    var friendsLabel = UILabel()
+    var friendsCount = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,82 +19,44 @@ class UserProfileView: UIView {
     
     override func updateConstraints() {
         super.updateConstraints()
-        
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             
+            userPic.widthAnchor.constraint(equalToConstant: 100),
+            userPic.heightAnchor.constraint(equalToConstant: 100),
+            userPic.topAnchor.constraint(equalTo: topAnchor, constant: 50),
+            userPic.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             
+            nameLabel.leadingAnchor.constraint(equalTo: userPic.leadingAnchor, constant: 130),
+            nameLabel.topAnchor.constraint(equalTo: userPic.topAnchor, constant: 40),
+            
+            friendsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            friendsLabel.topAnchor.constraint(equalTo: userPic.topAnchor, constant: 180),
+        
         ])
     }
     
-    func getStandardButton(_ title: String) -> UIButton {
-        let button = UIButton()
-        
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 20
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        return button
-    }
-    
     func setup() {
-        backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         
-        getFriendsButton = getStandardButton("Получить список друзей")
-        getPhotosButton = getStandardButton("Получить список фотографий")
-        getGroupsButton = getStandardButton("Получить список групп")
-        searchGroupButton = getStandardButton("Найти группу по запросу")
+        userPic.image = UIImage(named: "spongeBob")
+        userPic.layer.cornerRadius = 50
+        userPic.translatesAutoresizingMaskIntoConstraints = false
         
-        searchGroupInput.placeholder = "Поиск группы"
-        searchGroupInput.layer.cornerRadius = 20
-        searchGroupInput.backgroundColor = .white
-        searchGroupInput.textColor = .black
-
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 20
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.text = "Sponge Bob"
+        nameLabel.textColor = .white
+        nameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        nameLabel.sizeToFit()
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        stackView.addArrangedSubview(searchGroupInput)
-        stackView.addArrangedSubview(searchGroupButton)
+        friendsLabel.text = "\(friendsCount) друзей"
+        friendsLabel.textColor = .white
+        friendsLabel.font.withSize(12)
+        friendsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        stackView.setCustomSpacing(50, after: searchGroupButton)
-        
-        stackView.addArrangedSubview(getFriendsButton)
-        stackView.addArrangedSubview(getPhotosButton)
-        stackView.addArrangedSubview(getGroupsButton)
-        
-     
-        
-        
-        addSubview(stackView)
-        
+        addSubview(userPic)
+        addSubview(nameLabel)
+        addSubview(friendsLabel)
         setNeedsUpdateConstraints()
-    }
-    
-    
-}
-
-class TextField: UITextField {
-
-    let padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-
-    override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-
-    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-
-    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
+        
     }
 }

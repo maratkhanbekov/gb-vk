@@ -9,46 +9,50 @@
 /* Begin PBXBuildFile section */
 		4BB0FDA3932053A2D3298555 /* Pods_VK2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9FE70E798A2533F566AFD7 /* Pods_VK2.framework */; };
 		5E9F33562521BEC40042BBE4 /* VKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F33552521BEC40042BBE4 /* VKService.swift */; };
-		79120989251D1A5600636FA4 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79120988251D1A5600636FA4 /* UserProfileViewController.swift */; };
-		7912098C251D1ACC00636FA4 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912098B251D1ACC00636FA4 /* UserProfileView.swift */; };
-		7912098E251E111B00636FA4 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912098D251E111B00636FA4 /* MainTabBarController.swift */; };
+		5EFF32B8252249C40035E1E8 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32B7252249C40035E1E8 /* UserProfileViewController.swift */; };
+		5EFF32BB252249E00035E1E8 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32BA252249E00035E1E8 /* UserProfileView.swift */; };
+		5EFF32C12524FBDB0035E1E8 /* MainTapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32C02524FBDB0035E1E8 /* MainTapBarController.swift */; };
+		5EFF32C72524FFF50035E1E8 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32C62524FFF50035E1E8 /* GroupsViewController.swift */; };
+		5EFF32CA2525000F0035E1E8 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32C92525000F0035E1E8 /* GroupsView.swift */; };
+		5EFF32CD252500860035E1E8 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32CC252500860035E1E8 /* PhotosViewController.swift */; };
+		5EFF32E4252510320035E1E8 /* PhotosExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32E3252510320035E1E8 /* PhotosExtensions.swift */; };
+		5EFF32E7252510730035E1E8 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32E6252510730035E1E8 /* PhotoCollectionViewCell.swift */; };
 		79120990251E11F600636FA4 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912098F251E11F600636FA4 /* FriendsViewController.swift */; };
 		79120992251E122200636FA4 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79120991251E122200636FA4 /* FriendsView.swift */; };
 		7970FB2B2520669000359E93 /* LoginVKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970FB2A2520669000359E93 /* LoginVKViewController.swift */; };
 		7970FB2D252066A700359E93 /* LoginVKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970FB2C252066A700359E93 /* LoginVKView.swift */; };
-		7970FB302520684C00359E93 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970FB2F2520684C00359E93 /* Extensions.swift */; };
-		798DB3C8251F2429008D9EC1 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798DB3C7251F2429008D9EC1 /* WeatherService.swift */; };
+		7970FB302520684C00359E93 /* LoginVKExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970FB2F2520684C00359E93 /* LoginVKExtensions.swift */; };
 		79E8AFB6251D149C009A9A5D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E8AFB5251D149B009A9A5D /* SessionManager.swift */; };
 		79E8AFBC251D1585009A9A5D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E8AFBB251D1585009A9A5D /* User.swift */; };
 		79F9B571251B91ED0029C53C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9B570251B91ED0029C53C /* AppDelegate.swift */; };
 		79F9B573251B91ED0029C53C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9B572251B91ED0029C53C /* SceneDelegate.swift */; };
-		79F9B575251B91ED0029C53C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9B574251B91ED0029C53C /* LoginViewController.swift */; };
 		79F9B57A251B91F20029C53C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79F9B579251B91F20029C53C /* Assets.xcassets */; };
 		79F9B57D251B91F20029C53C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79F9B57B251B91F20029C53C /* LaunchScreen.storyboard */; };
-		79F9B585251B94060029C53C /* LoginScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9B584251B94060029C53C /* LoginScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5E9F33552521BEC40042BBE4 /* VKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKService.swift; sourceTree = "<group>"; };
-		79120988251D1A5600636FA4 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		7912098B251D1ACC00636FA4 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
-		7912098D251E111B00636FA4 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		5EFF32B7252249C40035E1E8 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		5EFF32BA252249E00035E1E8 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		5EFF32C02524FBDB0035E1E8 /* MainTapBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTapBarController.swift; sourceTree = "<group>"; };
+		5EFF32C62524FFF50035E1E8 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		5EFF32C92525000F0035E1E8 /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
+		5EFF32CC252500860035E1E8 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		5EFF32E3252510320035E1E8 /* PhotosExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosExtensions.swift; sourceTree = "<group>"; };
+		5EFF32E6252510730035E1E8 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		7912098F251E11F600636FA4 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		79120991251E122200636FA4 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		7970FB2A2520669000359E93 /* LoginVKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVKViewController.swift; sourceTree = "<group>"; };
 		7970FB2C252066A700359E93 /* LoginVKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVKView.swift; sourceTree = "<group>"; };
-		7970FB2F2520684C00359E93 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		798DB3C7251F2429008D9EC1 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		7970FB2F2520684C00359E93 /* LoginVKExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVKExtensions.swift; sourceTree = "<group>"; };
 		79E8AFB5251D149B009A9A5D /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		79E8AFBB251D1585009A9A5D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		79F9B56D251B91ED0029C53C /* VK2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F9B570251B91ED0029C53C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79F9B572251B91ED0029C53C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		79F9B574251B91ED0029C53C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		79F9B579251B91F20029C53C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79F9B57C251B91F20029C53C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79F9B57E251B91F20029C53C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		79F9B584251B94060029C53C /* LoginScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScrollView.swift; sourceTree = "<group>"; };
 		A9E8C3420AA1115291FC4A29 /* Pods-VK2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VK2.debug.xcconfig"; path = "Target Support Files/Pods-VK2/Pods-VK2.debug.xcconfig"; sourceTree = "<group>"; };
 		AB9FE70E798A2533F566AFD7 /* Pods_VK2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VK2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8ABDFC5873A43BD97A075B6 /* Pods-VK2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VK2.release.xcconfig"; path = "Target Support Files/Pods-VK2/Pods-VK2.release.xcconfig"; sourceTree = "<group>"; };
@@ -69,18 +73,40 @@
 		5E9F335F2521D9A60042BBE4 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				5EFF32C02524FBDB0035E1E8 /* MainTapBarController.swift */,
 				79F9B587251B94240029C53C /* Login */,
+				5EFF32C52524FFD00035E1E8 /* Groups */,
+				5EFF32C42524FFC20035E1E8 /* Photos */,
 				79120993251E128F00636FA4 /* Friends */,
 				7912098A251D1AC100636FA4 /* UserProfile */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
 		};
+		5EFF32C42524FFC20035E1E8 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				5EFF32CC252500860035E1E8 /* PhotosViewController.swift */,
+				5EFF32E6252510730035E1E8 /* PhotoCollectionViewCell.swift */,
+				5EFF32E3252510320035E1E8 /* PhotosExtensions.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		5EFF32C52524FFD00035E1E8 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				5EFF32C62524FFF50035E1E8 /* GroupsViewController.swift */,
+				5EFF32C92525000F0035E1E8 /* GroupsView.swift */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
 		7912098A251D1AC100636FA4 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
-				79120988251D1A5600636FA4 /* UserProfileViewController.swift */,
-				7912098B251D1ACC00636FA4 /* UserProfileView.swift */,
+				5EFF32B7252249C40035E1E8 /* UserProfileViewController.swift */,
+				5EFF32BA252249E00035E1E8 /* UserProfileView.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -99,24 +125,14 @@
 			children = (
 				7970FB2A2520669000359E93 /* LoginVKViewController.swift */,
 				7970FB2C252066A700359E93 /* LoginVKView.swift */,
-				7970FB2F2520684C00359E93 /* Extensions.swift */,
+				7970FB2F2520684C00359E93 /* LoginVKExtensions.swift */,
 			);
 			path = VK;
-			sourceTree = "<group>";
-		};
-		7970FB32252068BE00359E93 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				79F9B574251B91ED0029C53C /* LoginViewController.swift */,
-				79F9B584251B94060029C53C /* LoginScrollView.swift */,
-			);
-			path = Custom;
 			sourceTree = "<group>";
 		};
 		798DB3C6251F2414008D9EC1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				798DB3C7251F2429008D9EC1 /* WeatherService.swift */,
 				5E9F33552521BEC40042BBE4 /* VKService.swift */,
 			);
 			path = Services;
@@ -160,7 +176,6 @@
 				79F9B572251B91ED0029C53C /* SceneDelegate.swift */,
 				79F9B57B251B91F20029C53C /* LaunchScreen.storyboard */,
 				79F9B57E251B91F20029C53C /* Info.plist */,
-				7912098D251E111B00636FA4 /* MainTabBarController.swift */,
 			);
 			path = VK2;
 			sourceTree = "<group>";
@@ -169,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				7970FB2E252066D400359E93 /* VK */,
-				7970FB32252068BE00359E93 /* Custom */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -306,21 +320,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				79E8AFBC251D1585009A9A5D /* User.swift in Sources */,
-				79F9B575251B91ED0029C53C /* LoginViewController.swift in Sources */,
-				7912098E251E111B00636FA4 /* MainTabBarController.swift in Sources */,
+				5EFF32CD252500860035E1E8 /* PhotosViewController.swift in Sources */,
+				5EFF32BB252249E00035E1E8 /* UserProfileView.swift in Sources */,
+				5EFF32C72524FFF50035E1E8 /* GroupsViewController.swift in Sources */,
 				79E8AFB6251D149C009A9A5D /* SessionManager.swift in Sources */,
 				79F9B571251B91ED0029C53C /* AppDelegate.swift in Sources */,
-				79120989251D1A5600636FA4 /* UserProfileViewController.swift in Sources */,
+				5EFF32B8252249C40035E1E8 /* UserProfileViewController.swift in Sources */,
+				5EFF32E7252510730035E1E8 /* PhotoCollectionViewCell.swift in Sources */,
+				5EFF32E4252510320035E1E8 /* PhotosExtensions.swift in Sources */,
 				79120992251E122200636FA4 /* FriendsView.swift in Sources */,
+				5EFF32C12524FBDB0035E1E8 /* MainTapBarController.swift in Sources */,
 				79120990251E11F600636FA4 /* FriendsViewController.swift in Sources */,
-				79F9B585251B94060029C53C /* LoginScrollView.swift in Sources */,
+				5EFF32CA2525000F0035E1E8 /* GroupsView.swift in Sources */,
 				7970FB2B2520669000359E93 /* LoginVKViewController.swift in Sources */,
 				7970FB2D252066A700359E93 /* LoginVKView.swift in Sources */,
-				7970FB302520684C00359E93 /* Extensions.swift in Sources */,
+				7970FB302520684C00359E93 /* LoginVKExtensions.swift in Sources */,
 				5E9F33562521BEC40042BBE4 /* VKService.swift in Sources */,
-				7912098C251D1ACC00636FA4 /* UserProfileView.swift in Sources */,
 				79F9B573251B91ED0029C53C /* SceneDelegate.swift in Sources */,
-				798DB3C8251F2429008D9EC1 /* WeatherService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,67 +6,57 @@ class VKService {
     var baseUrl = "https://api.vk.com/method/"
     let v = 5.124
     
-    func getFriends(userId: Int, accessToken: String) {
-        
-        let methodName = "friends.get"
-        let urlString = baseUrl + methodName
-        
-        let parameters: Parameters = [
-            "user_id": userId,
-            "access_token": accessToken,
-            "v": v
-        ]
-        
-        AF.request(urlString, method: .get, parameters: parameters).response { response in
-            debugPrint("================== User Friends ==================")
-            debugPrint(response)
-        }
-    }
-    
-    func getPhotos(userId: Int, accessToken: String) {
-        let methodName = "photos.getAll"
-        let urlString = baseUrl + methodName
-        
-        let parameters: Parameters = [
-            "owner_id": userId,
-            "access_token": accessToken,
-            "v": v
-        ]
-        AF.request(urlString, method: .get, parameters: parameters).response { response in
-            debugPrint("================== User Photos ==================")
-            debugPrint(response)
-        }
-    }
-    
-    func getGroups(userId: Int, accessToken: String) {
+    func getUserGroups(userId: Int, accessToken: String, callback: @escaping ([UserGroups]) -> Void) {
         let methodName = "groups.get"
         let urlString = baseUrl + methodName
         
         let parameters: Parameters = [
-            "user_id": userId,
+            "users_id": userId,
             "access_token": accessToken,
-            "v": v
+            "v": v,
+            "extended": 1,
         ]
-        AF.request(urlString, method: .get, parameters: parameters).response { response in
-            debugPrint("================== User Groups ==================")
-            debugPrint(response)
+    
+
+        AF.request(urlString, method: .get, parameters: parameters).responseData { response in
+    
+            let data = response.data!
+            let decoder = JSONDecoder()
+            
+            let userGroupsRootResponse = try? decoder.decode(UserGroupsRootResponse.self, from: data)
+            let userGroups = userGroupsRootResponse?.response.items
+//
+            // Если все ок, то выполнить полученный closure
+            callback(userGroups!)
         }
+        
+        
     }
     
-    func searchGroups(q: String, accessToken: String) {
-        let methodName = "groups.search"
+    func getUserInfo(userId: Int, accessToken: String, callback: @escaping (UserProfile) -> Void) {
+        let methodName = "users.get"
         let urlString = baseUrl + methodName
         
         let parameters: Parameters = [
-            "q": q,
+            "users_id": userId,
             "access_token": accessToken,
-            "v": v
+            "v": v,
+            "fields": "sex, city, photo_100, followers_count",
         ]
-        AF.request(urlString, method: .get, parameters: parameters).response { response in
-            debugPrint("================== Founded Groups ==================")
-            debugPrint(response)
+    
+
+        AF.request(urlString, method: .get, parameters: parameters).responseData { response in
+    
+            let data = response.data!
+            let decoder = JSONDecoder()
+            let userRootResponse = try? decoder.decode(UserRootResponse.self, from: data)
+            let userProfile = userRootResponse?.response[0]
+            
+            // Если все ок, то выполнить полученный closure
+            callback(userProfile!)
         }
+        
+        
     }
-    
-    
 }
+
