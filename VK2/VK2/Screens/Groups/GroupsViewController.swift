@@ -17,12 +17,6 @@ class GroupsViewController: UIViewController {
             
             print(userGroups)
             
-            // Обновляем поля через главный поток
-            DispatchQueue.main.async {
-               
-            }
-            
-            
         })
     }
 }
