@@ -1,39 +1,55 @@
 import UIKit
 
 class UserProfileViewController: UIViewController {
-    var userProfileView = UserProfileView()
+    let userProfileView = UserProfileView()
     let vkService = VKService()
-
+    var userProfile: UserProfile?
+    
     override func loadView() {
         view = userProfileView
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        userProfileView.getFriendsButton.addTarget(self, action: #selector(getFriends), for: .touchUpInside)
-        userProfileView.getPhotosButton.addTarget(self, action: #selector(getPhotos), for: .touchUpInside)
-        userProfileView.getGroupsButton.addTarget(self, action: #selector(getGroups), for: .touchUpInside)
-        userProfileView.searchGroupButton.addTarget(self, action: #selector(searchGroups), for: .touchUpInside)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
+        guard let userId = SessionManager.instance.user?.usedId, let accessToken = SessionManager.instance.user?.accessToken else {return}
+        vkService.getUserInfo(userId: userId, accessToken: accessToken, callback: {
+            // weak для избежания утечки памяти
+            [weak self] userProfile in
+
+            // Инициализируем данные
+            self?.userProfile = userProfile
+            
+            // Обновляем поля через главный поток
+            DispatchQueue.main.async {
+                self?.userProfileView.nameLabel.text = self?.userProfile?.first_name
+                
+                if let photoURL = URL(string:(self?.userProfile!.photo_100)!) {
+                self?.userProfileView.userPic.load(url: photoURL)
+                }
+                
+                if let followersCount = self?.userProfile?.followers_count {
+                    self?.userProfileView.friendsLabel.text = "\(followersCount) подписчиков"
+                }
+                else {
+                    self?.userProfileView.friendsLabel.text = "Подписчиков нет"
+                }
+            }
+            
+            
+        })
     }
-    
-    @objc func getFriends() {
-        vkService.getFriends(userId: SessionManager.instance.user!.usedId, accessToken: SessionManager.instance.user!.accessToken)
-    }
-    
-    @objc func getPhotos() {
-        vkService.getPhotos(userId: SessionManager.instance.user!.usedId, accessToken: SessionManager.instance.user!.accessToken)
-    }
-    
-    @objc func getGroups() {
-        vkService.getGroups(userId: SessionManager.instance.user!.usedId, accessToken: SessionManager.instance.user!.accessToken)
-    }
-    
-    @objc func searchGroups() {
-        guard let request = userProfileView.searchGroupInput.text, request != "" else {
-            debugPrint("Введите ключевые словая для поиска")
-            return }
-        vkService.searchGroups(q: request, accessToken: SessionManager.instance.user!.accessToken)
+
+}
+
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
     }
 }
