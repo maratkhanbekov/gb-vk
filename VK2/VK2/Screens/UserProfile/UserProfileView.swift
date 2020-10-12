@@ -40,6 +40,7 @@ class UserProfileView: UIView {
         
         userPic.image = UIImage(named: "spongeBob")
         userPic.layer.cornerRadius = 50
+        userPic.clipsToBounds = true
         userPic.translatesAutoresizingMaskIntoConstraints = false
         
         nameLabel.text = "Sponge Bob"

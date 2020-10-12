@@ -5,6 +5,7 @@ class UserProfileViewController: UIViewController {
     let userProfileView = UserProfileView()
     let vkService = VKService()
     let sessionService = SessionService()
+    let dataService = RealmSaveService()
     var userProfile: UserProfile?
     
     override func loadView() {
@@ -14,24 +15,31 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Достаем ключи для авторизации из сессии
+        // Достаем ключи для авторизации
         guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
         
         // Запрашиваем данные из БД
-        if let userProfile = vkService.getUserData() {
+        if let userProfile = dataService.getUserData(userId: userId) {
             self.userProfile = userProfile
             updateUserProfile()
         }
         
-        // Если данных нет, запрашиваем данные из VK
+        // Если данных нет, запрашиваем и сохраняем данные из VK
         else {
             vkService.getUserInfo(userId: userId, accessToken: accessToken, callback: {
                 // weak для избежания утечки памяти
                 [weak self] userProfile in
+
+                // Сохраняем в базу
+                self?.dataService.saveUserData(userProfile)
+
+                // Отображаем данные
                 self?.userProfile = userProfile
                 self?.updateUserProfile()
             })
         }
+        
+        
     }
     
     // Функция для обновления интерфейса

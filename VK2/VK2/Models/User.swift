@@ -1,4 +1,5 @@
 import Foundation
+import Realm
 import RealmSwift
 
 struct User: Codable {
@@ -10,30 +11,29 @@ struct UserRootResponse: Decodable {
     let response: [UserProfile]
 }
 
-class UserProfile: Object, Decodable {
+struct UserProfile: Decodable {
+    let id: Int
+    let first_name: String
+    let last_name: String
+    let photo_100: String
+    let followers_count: Int
+}
+
+
+class UserProfileObject: Object {
+    
     @objc dynamic var id = 0
     @objc dynamic var first_name = ""
     @objc dynamic var last_name = ""
-//    @objc dynamic var city: UserCity
     @objc dynamic var photo_100 = ""
     @objc dynamic var followers_count = 0
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }
 
-class UserCity: Object, Decodable {
+class UserCityObject: Object {
     @objc dynamic var id = 0
     @objc dynamic var title = ""
 }
-
-struct UserGroupsRootResponse: Decodable {
-    let response: UserGroupsGeneralInfo
-}
-
-struct UserGroupsGeneralInfo: Decodable {
-    let count: Int
-    let items: [UserGroups]
-}
-
-struct UserGroups: Decodable {
-    let name: String
-}
-

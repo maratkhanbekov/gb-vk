@@ -2,23 +2,28 @@ import UIKit
 
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+        return userPhotos?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath)
-//        photoCell.backgroundColor = .orange
-//        return photoCell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCollectionViewCell
-        let data = self.data[indexPath.item]
-        cell.textLabel.text = String(data)
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
+
+        guard let photoUrl = URL(string: (userPhotos?[indexPath.row])!) else { return cell }
+        cell.groupImageView.load(url: photoUrl)
         return cell
         
     }
-}
-
-extension PhotosViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("User tapped on item \(indexPath)")
     }
+    
 }
+
+extension PhotosViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 100, height: 100)
+    }
+}
+

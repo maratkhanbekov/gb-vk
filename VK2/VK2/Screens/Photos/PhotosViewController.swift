@@ -3,9 +3,10 @@ import UIKit
 class PhotosViewController: UIViewController {
     
     var photosCollectionView: UICollectionView?
-    var data: [Int] = Array(0..<10)
+    var userPhotos: [String]?
     
     let vkService = VKService()
+    let sessionService = SessionService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,18 +20,24 @@ class PhotosViewController: UIViewController {
         
         photosCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         photosCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "photoCell")
-        photosCollectionView?.backgroundColor = .red
+        photosCollectionView?.backgroundColor = .white
 
         photosCollectionView?.delegate = self
         photosCollectionView?.dataSource = self
-        photosCollectionView?.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        photosCollectionView?.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
 
         view.addSubview(photosCollectionView ?? UICollectionView())
         
         self.view = view
-        
-//        guard let userId = SessionManager.instance.user?.usedId, let accessToken = SessionManager.instance.user?.accessToken else {return}
-//        vkService.getUserInfo(userId: userId, accessToken: accessToken)
+
+        // Загружаем данные
+        guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
+        vkService.getUserPhotos(userId: userId, accessToken: accessToken, callback: { [weak self] userPhotos in
+            
+            self?.userPhotos = userPhotos
+            self?.photosCollectionView?.reloadData()
+            
+        })
 
     }
 }
