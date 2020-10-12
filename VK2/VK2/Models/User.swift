@@ -1,4 +1,5 @@
 import Foundation
+import RealmSwift
 
 struct User: Codable {
     let usedId: Int
@@ -9,18 +10,18 @@ struct UserRootResponse: Decodable {
     let response: [UserProfile]
 }
 
-struct UserProfile: Decodable {
-    let id: Int
-    let first_name: String
-    let last_name: String
-    let city: UserCity
-    let photo_100: String
-    let followers_count: Int
+class UserProfile: Object, Decodable {
+    @objc dynamic var id = 0
+    @objc dynamic var first_name = ""
+    @objc dynamic var last_name = ""
+//    @objc dynamic var city: UserCity
+    @objc dynamic var photo_100 = ""
+    @objc dynamic var followers_count = 0
 }
 
-struct UserCity: Decodable {
-    let id: Int
-    let title: String
+class UserCity: Object, Decodable {
+    @objc dynamic var id = 0
+    @objc dynamic var title = ""
 }
 
 struct UserGroupsRootResponse: Decodable {

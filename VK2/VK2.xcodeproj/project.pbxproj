@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4BB0FDA3932053A2D3298555 /* Pods_VK2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9FE70E798A2533F566AFD7 /* Pods_VK2.framework */; };
+		5E8EE54C252B0A550032B88D /* Pods_VK2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9FE70E798A2533F566AFD7 /* Pods_VK2.framework */; };
 		5E9F33562521BEC40042BBE4 /* VKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F33552521BEC40042BBE4 /* VKService.swift */; };
+		5EEEAF5D252B342800081C3C /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEEAF5C252B342800081C3C /* SessionService.swift */; };
 		5EFF32B8252249C40035E1E8 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32B7252249C40035E1E8 /* UserProfileViewController.swift */; };
 		5EFF32BB252249E00035E1E8 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32BA252249E00035E1E8 /* UserProfileView.swift */; };
 		5EFF32C12524FBDB0035E1E8 /* MainTapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32C02524FBDB0035E1E8 /* MainTapBarController.swift */; };
@@ -31,7 +32,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E060BE0252B063E008DE5B6 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E060BE4252B0642008DE5B6 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E8EE539252B0A340032B88D /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E9F33552521BEC40042BBE4 /* VKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKService.swift; sourceTree = "<group>"; };
+		5EEEAF5C252B342800081C3C /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		5EFF32B7252249C40035E1E8 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		5EFF32BA252249E00035E1E8 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		5EFF32C02524FBDB0035E1E8 /* MainTapBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTapBarController.swift; sourceTree = "<group>"; };
@@ -63,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BB0FDA3932053A2D3298555 /* Pods_VK2.framework in Frameworks */,
+				5E8EE54C252B0A550032B88D /* Pods_VK2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				5E9F33552521BEC40042BBE4 /* VKService.swift */,
+				5EEEAF5C252B342800081C3C /* SessionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -191,6 +197,9 @@
 		972F11FEE63ECBC90DEA11BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5E8EE539252B0A340032B88D /* RealmSwift.framework */,
+				5E060BE4252B0642008DE5B6 /* Realm.framework */,
+				5E060BE0252B063E008DE5B6 /* RealmSwift.framework */,
 				AB9FE70E798A2533F566AFD7 /* Pods_VK2.framework */,
 			);
 			name = Frameworks;
@@ -337,6 +346,7 @@
 				7970FB302520684C00359E93 /* LoginVKExtensions.swift in Sources */,
 				5E9F33562521BEC40042BBE4 /* VKService.swift in Sources */,
 				79F9B573251B91ED0029C53C /* SceneDelegate.swift in Sources */,
+				5EEEAF5D252B342800081C3C /* SessionService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
