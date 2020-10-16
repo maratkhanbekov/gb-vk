@@ -58,4 +58,9 @@ class GroupsTableViewCell: UITableViewCell {
         self.contentView.addSubview(groupName)
         setNeedsUpdateConstraints()
     }
+    
+    func config(userGroupName: String, photoURL: URL) {
+        groupName.text = userGroupName
+        groupImageView.load(url: photoURL)
+    }
 }
