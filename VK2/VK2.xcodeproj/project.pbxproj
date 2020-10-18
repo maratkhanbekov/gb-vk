@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		5E8EE54C252B0A550032B88D /* Pods_VK2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9FE70E798A2533F566AFD7 /* Pods_VK2.framework */; };
 		5E9F33562521BEC40042BBE4 /* VKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F33552521BEC40042BBE4 /* VKService.swift */; };
-		5EDD0D91253383E200953744 /* CoreDataSaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D90253383E200953744 /* CoreDataSaveService.swift */; };
 		5EDD0D94253383F300953744 /* RealmSaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D93253383F300953744 /* RealmSaveService.swift */; };
 		5EDD0D972533854100953744 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D962533854100953744 /* Protocols.swift */; };
+		5EDD0D9C2534A1EE00953744 /* GroupsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D9B2534A1EE00953744 /* GroupsTableView.swift */; };
 		5EEEAF5D252B342800081C3C /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEEAF5C252B342800081C3C /* SessionService.swift */; };
 		5EFA4E61252B663300955631 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFA4E60252B663300955631 /* Group.swift */; };
 		5EFA4E68252B909300955631 /* GroupsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFA4E67252B909300955631 /* GroupsExtensions.swift */; };
@@ -42,9 +42,9 @@
 		5E060BE4252B0642008DE5B6 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E8EE539252B0A340032B88D /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E9F33552521BEC40042BBE4 /* VKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKService.swift; sourceTree = "<group>"; };
-		5EDD0D90253383E200953744 /* CoreDataSaveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSaveService.swift; sourceTree = "<group>"; };
 		5EDD0D93253383F300953744 /* RealmSaveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSaveService.swift; sourceTree = "<group>"; };
 		5EDD0D962533854100953744 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		5EDD0D9B2534A1EE00953744 /* GroupsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableView.swift; sourceTree = "<group>"; };
 		5EEEAF5C252B342800081C3C /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		5EFA4E60252B663300955631 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		5EFA4E67252B909300955631 /* GroupsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsExtensions.swift; sourceTree = "<group>"; };
@@ -126,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				5EFF32C62524FFF50035E1E8 /* GroupsViewController.swift */,
+				5EDD0D9B2534A1EE00953744 /* GroupsTableView.swift */,
 				5EFA4E6B252B92B100955631 /* GroupsTableViewCell.swift */,
 				5EFA4E67252B909300955631 /* GroupsExtensions.swift */,
 			);
@@ -155,7 +156,6 @@
 			children = (
 				5E9F33552521BEC40042BBE4 /* VKService.swift */,
 				5EEEAF5C252B342800081C3C /* SessionService.swift */,
-				5EDD0D90253383E200953744 /* CoreDataSaveService.swift */,
 				5EDD0D93253383F300953744 /* RealmSaveService.swift */,
 				5EDD0D962533854100953744 /* Protocols.swift */,
 			);
@@ -351,6 +351,7 @@
 				5EFF32BB252249E00035E1E8 /* UserProfileView.swift in Sources */,
 				5EFA4E61252B663300955631 /* Group.swift in Sources */,
 				5EFF32C72524FFF50035E1E8 /* GroupsViewController.swift in Sources */,
+				5EDD0D9C2534A1EE00953744 /* GroupsTableView.swift in Sources */,
 				79E8AFB6251D149C009A9A5D /* SessionManager.swift in Sources */,
 				79F9B571251B91ED0029C53C /* AppDelegate.swift in Sources */,
 				5EFF32B8252249C40035E1E8 /* UserProfileViewController.swift in Sources */,
@@ -362,7 +363,6 @@
 				79120990251E11F600636FA4 /* FriendsViewController.swift in Sources */,
 				5EFA4E6C252B92B100955631 /* GroupsTableViewCell.swift in Sources */,
 				7970FB2B2520669000359E93 /* LoginVKViewController.swift in Sources */,
-				5EDD0D91253383E200953744 /* CoreDataSaveService.swift in Sources */,
 				7970FB2D252066A700359E93 /* LoginVKView.swift in Sources */,
 				5EDD0D972533854100953744 /* Protocols.swift in Sources */,
 				5EFA4E88252E2BED00955631 /* Photos.swift in Sources */,
@@ -388,6 +388,80 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5E0A6B5C253766EB00D39184 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = Test;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Test;
+		};
+		5E0A6B5D253766EB00D39184 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8ABDFC5873A43BD97A075B6 /* Pods-VK2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TGDR2BLC5P;
+				INFOPLIST_FILE = VK2/Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = COM.MYOGR.VK2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Test;
+		};
 		79F9B57F251B91F20029C53C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -496,6 +570,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -548,6 +623,7 @@
 			buildConfigurations = (
 				79F9B57F251B91F20029C53C /* Debug */,
 				79F9B580251B91F20029C53C /* Release */,
+				5E0A6B5C253766EB00D39184 /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -557,6 +633,7 @@
 			buildConfigurations = (
 				79F9B582251B91F20029C53C /* Debug */,
 				79F9B583251B91F20029C53C /* Release */,
+				5E0A6B5D253766EB00D39184 /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

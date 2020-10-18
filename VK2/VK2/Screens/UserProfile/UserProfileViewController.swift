@@ -1,4 +1,5 @@
 import UIKit
+import RealmSwift
 
 class UserProfileViewController: UIViewController {
     
@@ -7,6 +8,8 @@ class UserProfileViewController: UIViewController {
     let sessionService = SessionService()
     let dataService = RealmSaveService()
     var userProfile: UserProfile?
+    
+    var token: NotificationToken?
     
     override func loadView() {
         view = userProfileView

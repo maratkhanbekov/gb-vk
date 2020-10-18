@@ -4,9 +4,10 @@ class PhotosViewController: UIViewController {
     
     var photosCollectionView: UICollectionView?
     var userPhotos: [String]?
-    
+
     let vkService = VKService()
     let sessionService = SessionService()
+    let dataService = RealmSaveService()
 
     override func viewDidLoad() {
         super.viewDidLoad()

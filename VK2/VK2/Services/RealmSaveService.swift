@@ -10,11 +10,16 @@ import Foundation
 import Realm
 import RealmSwift
 
+protocol RealmOutput: class {
+    func update(_ changes: RealmCollectionChange<Results<UserGroupsObject>>)
+}
+
+
 class RealmSaveService: SaveServiveInterface {
-    
-    
 
     let realm: Realm
+    var token: NotificationToken?
+    weak var delegate: RealmOutput?
     
     init() {
         let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
@@ -53,9 +58,7 @@ class RealmSaveService: SaveServiveInterface {
         debugPrint("Данные полученые из Realm")
         return userProfile
     }
-    
 
-    
     func saveUserGroups(_ userGroups: [UserGroup]) {
         do {
             let userGroupsObject = UserGroupsObject()
@@ -77,12 +80,19 @@ class RealmSaveService: SaveServiveInterface {
     }
     
     func getUserGroups() -> [UserGroup]? {
-        guard let userGroupsObject = realm.objects(UserGroupsObject.self).first else { return nil }
+        
+        // Формируем запрос
+        let userGroupsObject = realm.objects(UserGroupsObject.self)
+        
+        
+        // Подписываемся и в случае обновлений запускаем в делегате метод
+        self.token = userGroupsObject.observe({[weak self] (changes) in
+            self?.delegate?.update(changes)
+            
+        })
+        
         debugPrint("Данные полученые из Realm")
-        return userGroupsObject.groups.map { UserGroup(name: $0.name, photo_100: $0.photo_100) }
+        guard let userGroupsObjectFirst = userGroupsObject.first else { return nil }
+        return userGroupsObjectFirst.groups.map { UserGroup(name: $0.name, photo_100: $0.photo_100) }
     }
-    
-    
 }
-
-

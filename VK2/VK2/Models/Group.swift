@@ -20,7 +20,6 @@ struct UserGroup: Decodable {
     }
 }
 
-
 class UserGroupsObject: Object {
     let groups = List<UserGroupObject>()
 }

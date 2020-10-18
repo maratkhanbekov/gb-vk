@@ -1,4 +1,5 @@
 import UIKit
+import RealmSwift
 
 class GroupsViewController: UIViewController {
     
@@ -7,11 +8,20 @@ class GroupsViewController: UIViewController {
     let vkService = VKService()
     let dataService = RealmSaveService()
     
-    let groupsTableView = UITableView()
+    let groupsTableView = GroupsTableView()
     var userGroups: [UserGroup]?
+    
+    override func loadView() {
+        super.loadView()
+        view = groupsTableView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // Назначаем делегатом для возможности
+        dataService.delegate = self
         
         // Достаем ключи для авторизации
         guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
@@ -20,7 +30,7 @@ class GroupsViewController: UIViewController {
             
             
             self.userGroups = userGroups
-            self.groupsTableView.reloadData()
+            self.groupsTableView.tableView.reloadData()
         }
         
         else {
@@ -29,27 +39,18 @@ class GroupsViewController: UIViewController {
                 
                 self?.dataService.saveUserGroups(userGroups)
                 self?.userGroups = userGroups
-                self?.groupsTableView.reloadData()
+                self?.groupsTableView.tableView.reloadData()
                 
             })
         }
         
         // Добавляем TableView
         view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        view.addSubview(groupsTableView)
         
         // Настраиваем TableView
-        groupsTableView.delegate = self
-        groupsTableView.dataSource = self
-        groupsTableView.register(GroupsTableViewCell.self, forCellReuseIdentifier: GroupsTableViewCell.identifier)
+        groupsTableView.tableView.delegate = self
+        groupsTableView.tableView.dataSource = self
+        groupsTableView.tableView.register(GroupsTableViewCell.self, forCellReuseIdentifier: GroupsTableViewCell.identifier)
         
-        // MARK: TableView Constraints
-        groupsTableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            groupsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            groupsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            groupsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            groupsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
     }
 }
