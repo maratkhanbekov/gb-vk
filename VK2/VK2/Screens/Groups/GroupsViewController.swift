@@ -6,7 +6,7 @@ class GroupsViewController: UIViewController {
     // MARK: Services
     let sessionService = SessionService()
     let vkService = VKService()
-    let dataService = RealmSaveService()
+    let dataService = FirebaseService()
     
     let groupsTableView = GroupsTableView()
     var userGroups: [UserGroup]?
@@ -19,29 +19,16 @@ class GroupsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        // Назначаем делегатом для возможности
-        dataService.delegate = self
+    
+//        dataService.delegate = self
         
         // Достаем ключи для авторизации
         guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
         
-        if let userGroups = dataService.getUserGroups() {
-            
-            
+        
+        dataService.getUserGroups(userId: userId, accessToken: accessToken) { [unowned self] userGroups in
             self.userGroups = userGroups
             self.groupsTableView.tableView.reloadData()
-        }
-        
-        else {
-            
-            vkService.getUserGroups(userId: userId, accessToken: accessToken, callback: { [weak self] userGroups in
-                
-                self?.dataService.saveUserGroups(userGroups)
-                self?.userGroups = userGroups
-                self?.groupsTableView.tableView.reloadData()
-                
-            })
         }
         
         // Добавляем TableView

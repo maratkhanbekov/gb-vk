@@ -16,6 +16,13 @@ protocol RealmOutput: class {
 
 
 class RealmSaveService: SaveServiveInterface {
+    func getUserGroups(userId: Int, accessToken: String, callback: @escaping ([UserGroup]) -> Void) {
+        return
+    }
+    
+    func getUserData(userId: Int, accessToken: String, callback: @escaping (UserProfile) -> Void) {
+    }
+    
 
     let realm: Realm
     var token: NotificationToken?

@@ -2,9 +2,9 @@ import Foundation
 
 protocol SaveServiveInterface {
     func saveUserData(_ userProfile: UserProfile)
-    func getUserData(userId: Int) -> UserProfile?
+    func getUserData(userId: Int, accessToken: String, callback: @escaping(UserProfile) -> Void)
     
     func saveUserGroups(_ userGroups: [UserGroup])
-    func getUserGroups() -> [UserGroup]?
+    func getUserGroups(userId: Int, accessToken: String, callback: @escaping([UserGroup]) -> Void)
 }
 
