@@ -22,8 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         self.window = window
         window.rootViewController = UINavigationController(rootViewController: LoginVKViewController())
-        
-        
     }
 }
 
