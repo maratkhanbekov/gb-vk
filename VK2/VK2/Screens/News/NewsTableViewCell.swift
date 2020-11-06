@@ -102,17 +102,17 @@ class NewsTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             commentsAmount.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            commentsAmount.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70)
+            commentsAmount.leadingAnchor.constraint(equalTo: likesAmount.trailingAnchor, constant: 15)
         ])
         
         NSLayoutConstraint.activate([
             viewsAmount.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            viewsAmount.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 120)
+            viewsAmount.leadingAnchor.constraint(equalTo: commentsAmount.trailingAnchor, constant: 15)
         ])
         
         NSLayoutConstraint.activate([
             repostsAmount.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            repostsAmount.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 180)
+            repostsAmount.leadingAnchor.constraint(equalTo: viewsAmount.trailingAnchor, constant: 15)
         ])
         
         super.updateConstraints()
@@ -133,11 +133,16 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     func config(newsPost: NewsPost) {
+        
         authorName.text = newsPost.authorName
-        authorPhoto.image = UIImage(named: newsPost.authorPhoto)
         
-        postPhoto.image = UIImage(named: newsPost.postPhoto)
-        
+        if let authorPhotoURL = URL(string: newsPost.authorPhoto) {
+            authorPhoto.load(url: authorPhotoURL)
+        }
+
+        if let postPhotoURL = URL(string: newsPost.postPhoto) {
+            postPhoto.load(url: postPhotoURL)
+        }
         likesAmount.text = "\(newsPost.likesAmount) ❤️"
         commentsAmount.text = "\(newsPost.commentsAmount) 📝"
         viewsAmount.text = "\(newsPost.viewsAmount) 👀"

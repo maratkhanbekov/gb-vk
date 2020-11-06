@@ -50,13 +50,13 @@ class LoginFBView: UIView {
     
     private func setup() {
         backgroundColor = .white
-        setNeedsUpdateConstraints()
         
         setupLoginTextField()
         setupPasswordTextField()
         setupLoginButton()
         setupRegisterButton()
         
+        setNeedsUpdateConstraints()
         
     }
     
