@@ -25,16 +25,6 @@ extension LoginVKViewController: WKNavigationDelegate {
         
         SessionManager.instance.SignIn(userId: userId, accessToken: accessToken)
         
-        // Загружаем экран с тестом VK API
-//        let vkApiTestingViewController = VKApiTestingViewController()
-//        vkApiTestingViewController.modalPresentationStyle = .fullScreen
-//        self.present(vkApiTestingViewController, animated: true, completion: nil)
-        
-        // Загружаем экран с UserProfile
-//        let userProfileViewController = UserProfileViewController()
-//        userProfileViewController.modalPresentationStyle = .fullScreen
-//        self.present(userProfileViewController, animated: true, completion: nil)
-        
         // Запускаем экран с NavigationVC
         let mainNavigationViewController = MainTapBarController()
         mainNavigationViewController.modalPresentationStyle = .fullScreen

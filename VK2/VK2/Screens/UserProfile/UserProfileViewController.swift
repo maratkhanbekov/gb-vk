@@ -4,11 +4,14 @@ import RealmSwift
 class UserProfileViewController: UIViewController {
     
     let userProfileView = UserProfileView()
+    
+    // Services
     let vkService = VKService()
     let sessionService = SessionService()
     let dataService = FirebaseService()
-    var userProfile: UserProfile?
     
+    // Data
+    var userProfile: UserProfile?
     var token: NotificationToken?
     
     override func loadView() {
