@@ -1,13 +1,83 @@
 import Foundation
 import Alamofire
 import RealmSwift
-
+//import SwiftyJSON
 
 
 class VKService {
     var baseUrl = "https://api.vk.com/method/"
     let v = 5.124
     
+    
+    func getNewsPost(userId: Int, accessToken: String, callback: @escaping (NewsPostFeed) -> Void) {
+        let methodName = "newsfeed.get"
+        let urlString = baseUrl + methodName
+        
+        let parameters: Parameters = [
+            "owner_id": userId,
+            "access_token": accessToken,
+            "v": v,
+            "filters": "post",
+            "count": 2,
+        ]
+
+        AF.request(urlString, method: .get, parameters: parameters).response { response in
+            print(response.request)
+            let decoder = JSONDecoder()
+            let newsPostFeed: NewsPostFeed = try! decoder.decode(NewsPostFeed.self, from: response.data!)
+            callback(newsPostFeed)
+        }
+    }
+    
+    func parseNewsPost(newsPostFeed: NewsPostFeed) -> NewsPosts {
+        
+        var posts = [NewsPost]()
+        
+        newsPostFeed.response?.items?.forEach { item in
+            
+            let authorInfo = newsPostFeed.response?.groups?.filter({$0.id == -1 * item.sourceID!}).first
+    
+            let authorPhoto = authorInfo?.photo200 ?? ""
+            let authorName = authorInfo?.name ?? ""
+            let likesAmount = Int(item.comments?.count ?? 0)
+            let commentsAmount = Int(item.comments?.count ?? 0)
+            let viewsAmount = Int(item.views?.count ?? 0)
+            let repostsAmount = Int(item.reposts?.count ?? 0)
+            let postText = item.text ?? ""
+            let postAttachments = [""]
+            let postPhoto = item.attachments?.first?.photo?.sizes?.last?.url ?? ""
+            
+            let post = NewsPost(authorPhoto: authorPhoto, authorName: authorName, likesAmount: likesAmount, commentsAmount: commentsAmount, viewsAmount: viewsAmount, repostsAmount: repostsAmount, postText: postText, postAttachments: postAttachments, postPhoto: postPhoto)
+            
+            posts.append(post)
+        }
+        
+        let newsPosts = NewsPosts(posts: posts)
+        return newsPosts
+    }
+    
+    func getNewsPhoto(userId: Int, accessToken: String, callback: @escaping (NewsPhotoFeed) -> Void) {
+        let methodName = "newsfeed.get"
+        let urlString = baseUrl + methodName
+        
+        let parameters: Parameters = [
+            "owner_id": userId,
+            "access_token": accessToken,
+            "v": v,
+            "filters": "photos",
+            "count": 3,
+        ]
+
+        AF.request(urlString, method: .get, parameters: parameters).response { response in
+            print(response.request)
+            let decoder = JSONDecoder()
+            let newsPhotoFeed: NewsPhotoFeed = try! decoder.decode(NewsPhotoFeed.self, from: response.data!)
+            
+            
+            
+            callback(newsPhotoFeed)
+        }
+    }
     
     func getUserPhotos(userId: Int, accessToken: String, callback: @escaping ([String]) -> Void) {
         let methodName = "photos.getAll"
@@ -20,7 +90,7 @@ class VKService {
             "extended": 1,
             "count": 10
         ]
-
+        
         AF.request(urlString, method: .get, parameters: parameters).responseData { response in
             let data = response.data!
             let decoder = JSONDecoder()
@@ -32,7 +102,7 @@ class VKService {
             userPhotos?.forEach { userPhotosURLs.append(String($0.url)) }
             
             callback(userPhotosURLs)
-
+            
         }
     }
     
@@ -47,10 +117,10 @@ class VKService {
             "extended": 1,
             "fields": "name, photo_100"
         ]
-    
-
+        
+        
         AF.request(urlString, method: .get, parameters: parameters).responseData { response in
-    
+            
             let data = response.data!
             let decoder = JSONDecoder()
             
@@ -72,10 +142,10 @@ class VKService {
             "v": v,
             "fields": "sex, city, photo_100, followers_count",
         ]
-    
-
+        
+        
         AF.request(urlString, method: .get, parameters: parameters).responseData { response in
-    
+            
             let data = response.data!
             let decoder = JSONDecoder()
             let userRootResponse = try? decoder.decode(UserRootResponse.self, from: data)
@@ -83,7 +153,7 @@ class VKService {
             
             guard let userProfileUnWrapped = userProfile else { return }
             
-//            self.saveUserData(userProfileUnWrapped)
+            //            self.saveUserData(userProfileUnWrapped)
             
             // Если все ок, то выполнить полученный closure
             
@@ -93,32 +163,32 @@ class VKService {
     }
     
     // Сохранение данных в Realm
-//    func saveUserData(_ userProfile: UserProfile) {
-//        do {
-//
-//            // получаем объект класса Realm для доступа к хранилищу.
-//            let realm = try Realm()
-//            // начнем сеанс записи
-//            realm.beginWrite()
-//            //  добавим объект
-//            realm.add(userProfile)
-//            // завершим сеанс записи
-//            try realm.commitWrite()
-//            debugPrint("Данные получены из vk.com и сохранены")
-//        }
-//        catch {
-//            print(error)
-//        }
-//    }
+    //    func saveUserData(_ userProfile: UserProfile) {
+    //        do {
+    //
+    //            // получаем объект класса Realm для доступа к хранилищу.
+    //            let realm = try Realm()
+    //            // начнем сеанс записи
+    //            realm.beginWrite()
+    //            //  добавим объект
+    //            realm.add(userProfile)
+    //            // завершим сеанс записи
+    //            try realm.commitWrite()
+    //            debugPrint("Данные получены из vk.com и сохранены")
+    //        }
+    //        catch {
+    //            print(error)
+    //        }
+    //    }
     
     // Чтение данных из Realm
-//    func getUserData() -> UserProfile? {
-//        print(Realm.Configuration.defaultConfiguration.fileURL!)
-//        debugPrint("Данные получены из Realm")
-//        let realm = try! Realm()
-//        guard let userProfile = realm.objects(UserProfileObject.self).first else { return nil }
-//        return userProfile
-//
-//    }
+    //    func getUserData() -> UserProfile? {
+    //        print(Realm.Configuration.defaultConfiguration.fileURL!)
+    //        debugPrint("Данные получены из Realm")
+    //        let realm = try! Realm()
+    //        guard let userProfile = realm.objects(UserProfileObject.self).first else { return nil }
+    //        return userProfile
+    //
+    //    }
 }
 
