@@ -19,9 +19,6 @@ class GroupsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
-//        dataService.delegate = self
-        
         // Достаем ключи для авторизации
         guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
         

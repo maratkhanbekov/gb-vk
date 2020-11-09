@@ -23,7 +23,7 @@ class LoginVKViewController: UIViewController {
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "v", value: "5.68"),
-            URLQueryItem(name: "scope", value: "wall, friends"),
+            URLQueryItem(name: "scope", value: "wall, friends, photos"),
         ]
         
         let request = URLRequest(url: urlComponents.url!)

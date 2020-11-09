@@ -1,14 +1,13 @@
 import Foundation
 import Alamofire
 import RealmSwift
-//import SwiftyJSON
-
 
 class VKService {
     var baseUrl = "https://api.vk.com/method/"
     let v = 5.124
     
-    
+    let dispatchGroup = DispatchGroup()
+
     func getNewsPost(userId: Int, accessToken: String, callback: @escaping (NewsPostFeed) -> Void) {
         let methodName = "newsfeed.get"
         let urlString = baseUrl + methodName
@@ -18,9 +17,9 @@ class VKService {
             "access_token": accessToken,
             "v": v,
             "filters": "post",
-            "count": 2,
+            "count": 5,
         ]
-
+        
         AF.request(urlString, method: .get, parameters: parameters).response { response in
             print(response.request)
             let decoder = JSONDecoder()
@@ -29,32 +28,6 @@ class VKService {
         }
     }
     
-    func parseNewsPost(newsPostFeed: NewsPostFeed) -> NewsPosts {
-        
-        var posts = [NewsPost]()
-        
-        newsPostFeed.response?.items?.forEach { item in
-            
-            let authorInfo = newsPostFeed.response?.groups?.filter({$0.id == -1 * item.sourceID!}).first
-    
-            let authorPhoto = authorInfo?.photo200 ?? ""
-            let authorName = authorInfo?.name ?? ""
-            let likesAmount = Int(item.comments?.count ?? 0)
-            let commentsAmount = Int(item.comments?.count ?? 0)
-            let viewsAmount = Int(item.views?.count ?? 0)
-            let repostsAmount = Int(item.reposts?.count ?? 0)
-            let postText = item.text ?? ""
-            let postAttachments = [""]
-            let postPhoto = item.attachments?.first?.photo?.sizes?.last?.url ?? ""
-            
-            let post = NewsPost(authorPhoto: authorPhoto, authorName: authorName, likesAmount: likesAmount, commentsAmount: commentsAmount, viewsAmount: viewsAmount, repostsAmount: repostsAmount, postText: postText, postAttachments: postAttachments, postPhoto: postPhoto)
-            
-            posts.append(post)
-        }
-        
-        let newsPosts = NewsPosts(posts: posts)
-        return newsPosts
-    }
     
     func getNewsPhoto(userId: Int, accessToken: String, callback: @escaping (NewsPhotoFeed) -> Void) {
         let methodName = "newsfeed.get"
@@ -67,14 +40,11 @@ class VKService {
             "filters": "photos",
             "count": 3,
         ]
-
+        
         AF.request(urlString, method: .get, parameters: parameters).response { response in
             print(response.request)
             let decoder = JSONDecoder()
             let newsPhotoFeed: NewsPhotoFeed = try! decoder.decode(NewsPhotoFeed.self, from: response.data!)
-            
-            
-            
             callback(newsPhotoFeed)
         }
     }
@@ -97,7 +67,7 @@ class VKService {
             
             let userPhotosRootResponse = try? decoder.decode(UserPhotosRootResponse.self, from: data)
             
-            let userPhotos = userPhotosRootResponse?.response.photos.map{ $0.sizes.filter { size in size.type == "w"} }.compactMap{ $0.first }
+            let userPhotos = userPhotosRootResponse?.response.photos.map{ $0.sizes.filter { size in size.type == "w"} }.compactMap { $0.first }
             var userPhotosURLs = [String]()
             userPhotos?.forEach { userPhotosURLs.append(String($0.url)) }
             

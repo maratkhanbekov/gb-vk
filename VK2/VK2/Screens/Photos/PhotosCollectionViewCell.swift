@@ -41,7 +41,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     func setup() {
         addSubview(groupImageView)
         setNeedsUpdateConstraints()
-        
     }
     
 }
