@@ -2,10 +2,6 @@ import UIKit
 
 class ParsingNewsPostOperation: Operation {
     
-    override var isAsynchronous: Bool {
-        return true
-    }
-    
     let inputNewsPostFeed: NewsPostFeed
     var outputNewsPosts: NewsPosts?
     

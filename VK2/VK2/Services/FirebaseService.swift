@@ -8,6 +8,8 @@
 
 import Foundation
 import Firebase
+import PromiseKit
+
 
 class FirebaseService: SaveServiveInterface {
    
@@ -57,7 +59,6 @@ class FirebaseService: SaveServiveInterface {
                 }
             }
             
-            
             // Если не нашли, то получаем данные из ВК
             self.vkService.getUserInfo(userId: userId, accessToken: accessToken, callback: {[weak self] userProfile in
                 var output: UserProfile
@@ -84,34 +85,26 @@ class FirebaseService: SaveServiveInterface {
         }
     }
     
-    func getUserGroups(userId: Int, accessToken: String, callback: @escaping([UserGroup]) -> Void) {
-        groupsListRef.observeSingleEvent(of: .value) { (snapshot) in
-            var output = [UserGroup]()
-            let children = snapshot.children
-            
-            for child in children {
-                let snap = child as! DataSnapshot
-                let dict = snap.value as! [String: Any]
+    func getUserGroups(userId: Int, accessToken: String) -> Promise<[UserGroup]> {
+        let promise = Promise<[UserGroup]> { resolver in
+            groupsListRef.observeSingleEvent(of: .value) { (snapshot) in
+                var output = [UserGroup]()
+                let children = snapshot.children
                 
-                let name = dict["name"] as! String
-                let photo_100 = dict["photo_100"] as! String
-                
-                let userGroup = UserGroup(name: name, photo_100: photo_100)
-                output.append(userGroup)
-                debugPrint("Данные User Groups из Firebase")
+                for child in children {
+                    let snap = child as! DataSnapshot
+                    let dict = snap.value as! [String: Any]
+                    
+                    let name = dict["name"] as! String
+                    let photo_100 = dict["photo_100"] as! String
+                    
+                    let userGroup = UserGroup(name: name, photo_100: photo_100)
+                    output.append(userGroup)
+                    debugPrint("Данные User Groups из Firebase")
+                }
+                resolver.fulfill(output)
             }
-            
-            callback(output)
-            return
-
-            // Если не нашли, то получаем данные из ВК
-            self.vkService.getUserGroups(userId: userId, accessToken: accessToken, callback: { [weak self] userGroups in
-                self?.saveUserGroups(userGroups)
-                callback(output)
-                return
-            })
         }
-        
+        return promise
     }
-    
 }

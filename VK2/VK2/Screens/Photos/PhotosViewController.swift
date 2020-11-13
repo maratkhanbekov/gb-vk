@@ -33,12 +33,16 @@ class PhotosViewController: UIViewController {
 
         // Загружаем данные
         guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
-        vkService.getUserPhotos(userId: userId, accessToken: accessToken, callback: { [weak self] userPhotos in
-            
-            self?.userPhotos = userPhotos
-            self?.photosCollectionView?.reloadData()
-            
-        })
+
+        
+        vkService.getUserPhotos(userId: userId, accessToken: accessToken)
+            .done { [unowned self] userPhotos in
+                self.userPhotos = userPhotos
+                self.photosCollectionView?.reloadData()
+            }
+            .catch { error in
+                print(error.localizedDescription)
+            }
     }
 }
 
