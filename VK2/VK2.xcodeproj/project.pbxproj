@@ -18,6 +18,8 @@
 		5E93F4A8254EBC8300ECB3F3 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93F4A7254EBC8300ECB3F3 /* NewsTableViewCell.swift */; };
 		5E9F33562521BEC40042BBE4 /* VKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F33552521BEC40042BBE4 /* VKService.swift */; };
 		5EAF6BD52554282D00BCD492 /* NewsPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAF6BD42554282D00BCD492 /* NewsPhoto.swift */; };
+		5EAF6C092556BF0500BCD492 /* BlurImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAF6C082556BF0500BCD492 /* BlurImageOperation.swift */; };
+		5EAF6C0C25570FB400BCD492 /* ParsingNewsPostOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAF6C0B25570FB400BCD492 /* ParsingNewsPostOperation.swift */; };
 		5EDD0D94253383F300953744 /* RealmSaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D93253383F300953744 /* RealmSaveService.swift */; };
 		5EDD0D972533854100953744 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D962533854100953744 /* Protocols.swift */; };
 		5EDD0D9C2534A1EE00953744 /* GroupsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D9B2534A1EE00953744 /* GroupsTableView.swift */; };
@@ -31,7 +33,6 @@
 		5EFF32C12524FBDB0035E1E8 /* MainTapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32C02524FBDB0035E1E8 /* MainTapBarController.swift */; };
 		5EFF32C72524FFF50035E1E8 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32C62524FFF50035E1E8 /* GroupsViewController.swift */; };
 		5EFF32CD252500860035E1E8 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32CC252500860035E1E8 /* PhotosViewController.swift */; };
-		5EFF32E4252510320035E1E8 /* PhotosExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32E3252510320035E1E8 /* PhotosExtensions.swift */; };
 		5EFF32E7252510730035E1E8 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF32E6252510730035E1E8 /* PhotosCollectionViewCell.swift */; };
 		79120990251E11F600636FA4 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912098F251E11F600636FA4 /* FriendsViewController.swift */; };
 		79120992251E122200636FA4 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79120991251E122200636FA4 /* FriendsView.swift */; };
@@ -60,6 +61,8 @@
 		5E93F4A7254EBC8300ECB3F3 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		5E9F33552521BEC40042BBE4 /* VKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKService.swift; sourceTree = "<group>"; };
 		5EAF6BD42554282D00BCD492 /* NewsPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhoto.swift; sourceTree = "<group>"; };
+		5EAF6C082556BF0500BCD492 /* BlurImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurImageOperation.swift; sourceTree = "<group>"; };
+		5EAF6C0B25570FB400BCD492 /* ParsingNewsPostOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingNewsPostOperation.swift; sourceTree = "<group>"; };
 		5EDD0D93253383F300953744 /* RealmSaveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSaveService.swift; sourceTree = "<group>"; };
 		5EDD0D962533854100953744 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		5EDD0D9B2534A1EE00953744 /* GroupsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableView.swift; sourceTree = "<group>"; };
@@ -73,7 +76,6 @@
 		5EFF32C02524FBDB0035E1E8 /* MainTapBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTapBarController.swift; sourceTree = "<group>"; };
 		5EFF32C62524FFF50035E1E8 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		5EFF32CC252500860035E1E8 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
-		5EFF32E3252510320035E1E8 /* PhotosExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosExtensions.swift; sourceTree = "<group>"; };
 		5EFF32E6252510730035E1E8 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		7912098F251E11F600636FA4 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		79120991251E122200636FA4 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,15 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
+		5EAF6C0F2557E78B00BCD492 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				5EAF6C082556BF0500BCD492 /* BlurImageOperation.swift */,
+				5EAF6C0B25570FB400BCD492 /* ParsingNewsPostOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
 		5EDD0D8B253236A600953744 /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,7 +160,6 @@
 			children = (
 				5EFF32CC252500860035E1E8 /* PhotosViewController.swift */,
 				5EFF32E6252510730035E1E8 /* PhotosCollectionViewCell.swift */,
-				5EFF32E3252510320035E1E8 /* PhotosExtensions.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -228,6 +238,7 @@
 		79F9B56F251B91ED0029C53C /* VK2 */ = {
 			isa = PBXGroup;
 			children = (
+				5EAF6C0F2557E78B00BCD492 /* Operations */,
 				5E9F335F2521D9A60042BBE4 /* Screens */,
 				798DB3C6251F2414008D9EC1 /* Services */,
 				79E8AFBD251D158B009A9A5D /* Models */,
@@ -398,8 +409,8 @@
 				5EFF32E7252510730035E1E8 /* PhotosCollectionViewCell.swift in Sources */,
 				5E80CAE5254EBF5500BE0ABF /* NewsPost.swift in Sources */,
 				5EAF6BD52554282D00BCD492 /* NewsPhoto.swift in Sources */,
-				5EFF32E4252510320035E1E8 /* PhotosExtensions.swift in Sources */,
 				5EDD0D94253383F300953744 /* RealmSaveService.swift in Sources */,
+				5EAF6C092556BF0500BCD492 /* BlurImageOperation.swift in Sources */,
 				5E13FB91253ADC930028470F /* LoginFBView.swift in Sources */,
 				79120992251E122200636FA4 /* FriendsView.swift in Sources */,
 				5E13FB8D253ADA380028470F /* FirebaseService.swift in Sources */,
@@ -410,6 +421,7 @@
 				7970FB2D252066A700359E93 /* LoginVKView.swift in Sources */,
 				5EDD0D972533854100953744 /* Protocols.swift in Sources */,
 				5EFA4E88252E2BED00955631 /* Photos.swift in Sources */,
+				5EAF6C0C25570FB400BCD492 /* ParsingNewsPostOperation.swift in Sources */,
 				7970FB302520684C00359E93 /* LoginVKExtensions.swift in Sources */,
 				5E9F33562521BEC40042BBE4 /* VKService.swift in Sources */,
 				79F9B573251B91ED0029C53C /* SceneDelegate.swift in Sources */,

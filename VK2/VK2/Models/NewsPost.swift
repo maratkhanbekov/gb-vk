@@ -27,11 +27,9 @@ struct PostResponse: Codable {
     let items: [Item]?
     let profiles: [Profile]?
     let groups: [Group]?
-//    let nextFrom: String?
 
     enum CodingKeys: String, CodingKey {
         case items, profiles, groups
-//        case nextFrom = "next_from"
     }
 }
 
@@ -170,7 +168,6 @@ struct Profile: Codable {
     let sex: Int?
     let screenName: String?
     let photo50, photo100: String?
-//    let onlineInfo: OnlineInfo?
     let online: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -183,7 +180,6 @@ struct Profile: Codable {
         case screenName = "screen_name"
         case photo50 = "photo_50"
         case photo100 = "photo_100"
-//        case onlineInfo = "online_info"
         case online
     }
 }

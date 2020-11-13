@@ -16,7 +16,7 @@ class NewsTableViewCell: UITableViewCell {
         return label
     }()
     
-
+    
     let likesAmount: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +67,7 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     override func updateConstraints() {
-
+        
         NSLayoutConstraint.activate([
             authorPhoto.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             authorPhoto.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
@@ -136,12 +136,13 @@ class NewsTableViewCell: UITableViewCell {
         
         authorName.text = newsPost.authorName
         
+        
         if let authorPhotoURL = URL(string: newsPost.authorPhoto) {
-            authorPhoto.load(url: authorPhotoURL)
+            self.authorPhoto.load(url: authorPhotoURL)
         }
-
+        
         if let postPhotoURL = URL(string: newsPost.postPhoto) {
-            postPhoto.load(url: postPhotoURL)
+            self.postPhoto.load(url: postPhotoURL)
         }
         likesAmount.text = "\(newsPost.likesAmount) ❤️"
         commentsAmount.text = "\(newsPost.commentsAmount) 📝"

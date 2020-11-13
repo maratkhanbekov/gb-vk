@@ -8,6 +8,8 @@ class NewsViewController: UIViewController {
     let vkService = VKService()
     let sessionService = SessionService()
     
+    let operationQueue = OperationQueue()
+    
     override func loadView() {
         super.loadView()
         view = newsView
@@ -20,26 +22,23 @@ class NewsViewController: UIViewController {
         
         // Загружаем данные
         guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
+        
+        vkService.getNewsPost(userId: userId, accessToken: accessToken, callback: { [weak self] newsPostfeed in
+     
+            
+            let parsingNewsPostOperation = ParsingNewsPostOperation(inputNewsPostFeed: newsPostfeed)
+            parsingNewsPostOperation.completionBlock =  {
 
-        // Создаем очередь
-        let vkQueue = DispatchQueue(label: "vkQueue",
-                              qos: DispatchQoS.utility,
-                              autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.inherit,
-                              target: DispatchQueue.global(qos: DispatchQoS.QoSClass.utility))
-        
-        
-        vkQueue.sync {
-            vkService.getNewsPost(userId: userId, accessToken: accessToken, callback: { [weak self] newsPostfeed in
-                
-                // Парсим данные
-                self?.newsPosts = self?.vkService.parseNewsPost(newsPostFeed: newsPostfeed)
-                
-                // Обновляем интерфейс
-                DispatchQueue.main.async {
+                if let newsPosts = parsingNewsPostOperation.outputNewsPosts {
+                self?.newsPosts = newsPosts
+                    OperationQueue.main.addOperation {
                     self?.newsView.tableView.reloadData()
+                    }
                 }
-            })
-        }
+            }
+            self?.operationQueue.addOperation(parsingNewsPostOperation)
+        })
+        
         
     }
 }
@@ -50,15 +49,39 @@ extension NewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.frame.width + 200
+        return 600
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as! NewsTableViewCell
+        
         guard let newsPost = newsPosts?.posts[indexPath.row] else { return cell }
+        
         cell.config(newsPost: newsPost)
+        
+        guard let postPhotoImage = cell.postPhoto.image else { return cell }
+        
+        // Создаем операцию
+        let blurImageOperation = BlurImageOperation(inputImage: postPhotoImage)
+        
+        // Выставляем действия по окончанию операции
+        blurImageOperation.completionBlock = {
+            
+            if let blurredImage = blurImageOperation.outputImage {
+                OperationQueue.main.addOperation {
+                    cell.postPhoto.image = blurredImage
+                }
+            }
+        }
+        
+        // Добавляем операцию и начинаем выполнять
+        operationQueue.addOperation(blurImageOperation)
         return cell
     }
+    
+    
+    
+    
 }
 
 extension NewsViewController: UITableViewDelegate {}
