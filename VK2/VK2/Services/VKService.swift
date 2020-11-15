@@ -1,13 +1,12 @@
 import Foundation
 import Alamofire
 import RealmSwift
+import PromiseKit
 
 class VKService {
     var baseUrl = "https://api.vk.com/method/"
     let v = 5.124
     
-    let dispatchGroup = DispatchGroup()
-
     func getNewsPost(userId: Int, accessToken: String, callback: @escaping (NewsPostFeed) -> Void) {
         let methodName = "newsfeed.get"
         let urlString = baseUrl + methodName
@@ -49,7 +48,8 @@ class VKService {
         }
     }
     
-    func getUserPhotos(userId: Int, accessToken: String, callback: @escaping ([String]) -> Void) {
+    
+    func getUserPhotos(userId: Int, accessToken: String) -> Promise<[String]> {
         let methodName = "photos.getAll"
         let urlString = baseUrl + methodName
         
@@ -61,25 +61,30 @@ class VKService {
             "count": 10
         ]
         
-        AF.request(urlString, method: .get, parameters: parameters).responseData { response in
-            let data = response.data!
-            let decoder = JSONDecoder()
+        let promise = Promise<[String]> { resolver in
             
-            let userPhotosRootResponse = try? decoder.decode(UserPhotosRootResponse.self, from: data)
-            
-            let userPhotos = userPhotosRootResponse?.response.photos.map{ $0.sizes.filter { size in size.type == "w"} }.compactMap { $0.first }
-            var userPhotosURLs = [String]()
-            userPhotos?.forEach { userPhotosURLs.append(String($0.url)) }
-            
-            callback(userPhotosURLs)
-            
+            AF.request(urlString, method: .get, parameters: parameters).responseData { response in
+                switch response.result {
+                case .success(let data):
+                    let decoder = JSONDecoder()
+                    
+                    let userPhotosRootResponse = try? decoder.decode(UserPhotosRootResponse.self, from: data)
+                    
+                    let userPhotos = userPhotosRootResponse?.response.photos.map{ $0.sizes.filter { size in size.type == "w"} }.compactMap { $0.first }
+                    var userPhotosURLs = [String]()
+                    userPhotos?.forEach { userPhotosURLs.append(String($0.url)) }
+                    resolver.fulfill(userPhotosURLs)
+                case .failure(let error):
+                    resolver.reject(error)
+                }
+            }
         }
+        return promise
     }
     
-    func getUserGroups(userId: Int, accessToken: String, callback: @escaping ([UserGroup]) -> Void) {
+    func getUserGroups(userId: Int, accessToken: String) -> Promise<[UserGroup]> {
         let methodName = "groups.get"
         let urlString = baseUrl + methodName
-        
         let parameters: Parameters = [
             "users_id": userId,
             "access_token": accessToken,
@@ -88,18 +93,28 @@ class VKService {
             "fields": "name, photo_100"
         ]
         
-        
-        AF.request(urlString, method: .get, parameters: parameters).responseData { response in
+        let promise = Promise<[UserGroup]> { resolver in
             
-            let data = response.data!
-            let decoder = JSONDecoder()
-            
-            let userGroupsRootResponse = try? decoder.decode(UserGroupsRootResponse.self, from: data)
-            let userGroups = userGroupsRootResponse?.response.items
-            // Если все ок, то выполнить полученный closure
-            debugPrint("Данные получены из VK")
-            callback(userGroups!)
+            AF.request(urlString, method: .get, parameters: parameters).responseData { response in
+                switch response.result {
+                
+                case .success(let data):
+                    let decoder = JSONDecoder()
+                    let userGroupsRootResponse = try? decoder.decode(UserGroupsRootResponse.self, from: data)
+                    let userGroups = userGroupsRootResponse?.response.items
+                    // Если все ок, то выполнить полученный closure
+                    debugPrint("Данные получены из VK")
+                    resolver.fulfill(userGroups!)
+                    
+                case .failure(let error):
+                    resolver.reject(error)
+                }
+                
+            }
         }
+        
+        return promise
+        
     }
     
     func getUserInfo(userId: Int, accessToken: String, callback: @escaping (UserProfile) -> Void) {
@@ -131,34 +146,34 @@ class VKService {
             callback(userProfileUnWrapped)
         }
     }
-    
-    // Сохранение данных в Realm
-    //    func saveUserData(_ userProfile: UserProfile) {
-    //        do {
-    //
-    //            // получаем объект класса Realm для доступа к хранилищу.
-    //            let realm = try Realm()
-    //            // начнем сеанс записи
-    //            realm.beginWrite()
-    //            //  добавим объект
-    //            realm.add(userProfile)
-    //            // завершим сеанс записи
-    //            try realm.commitWrite()
-    //            debugPrint("Данные получены из vk.com и сохранены")
-    //        }
-    //        catch {
-    //            print(error)
-    //        }
-    //    }
-    
-    // Чтение данных из Realm
-    //    func getUserData() -> UserProfile? {
-    //        print(Realm.Configuration.defaultConfiguration.fileURL!)
-    //        debugPrint("Данные получены из Realm")
-    //        let realm = try! Realm()
-    //        guard let userProfile = realm.objects(UserProfileObject.self).first else { return nil }
-    //        return userProfile
-    //
-    //    }
+
 }
 
+// Сохранение данных в Realm
+//    func saveUserData(_ userProfile: UserProfile) {
+//        do {
+//
+//            // получаем объект класса Realm для доступа к хранилищу.
+//            let realm = try Realm()
+//            // начнем сеанс записи
+//            realm.beginWrite()
+//            //  добавим объект
+//            realm.add(userProfile)
+//            // завершим сеанс записи
+//            try realm.commitWrite()
+//            debugPrint("Данные получены из vk.com и сохранены")
+//        }
+//        catch {
+//            print(error)
+//        }
+//    }
+
+// Чтение данных из Realm
+//    func getUserData() -> UserProfile? {
+//        print(Realm.Configuration.defaultConfiguration.fileURL!)
+//        debugPrint("Данные получены из Realm")
+//        let realm = try! Realm()
+//        guard let userProfile = realm.objects(UserProfileObject.self).first else { return nil }
+//        return userProfile
+//
+//    }

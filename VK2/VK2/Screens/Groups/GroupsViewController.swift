@@ -22,11 +22,12 @@ class GroupsViewController: UIViewController {
         // Достаем ключи для авторизации
         guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
         
-        
-        dataService.getUserGroups(userId: userId, accessToken: accessToken) { [unowned self] userGroups in
-            self.userGroups = userGroups
-            self.groupsTableView.tableView.reloadData()
-        }
+
+        dataService.getUserGroups(userId: userId, accessToken: accessToken)
+            .done { userGroups in
+                self.userGroups = userGroups
+                self.groupsTableView.tableView.reloadData()
+            }
         
         // Добавляем TableView
         view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)

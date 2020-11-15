@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import PromiseKit
 
 protocol RealmOutput: class {
     func update(_ changes: RealmCollectionChange<Results<UserGroupsObject>>)
@@ -84,6 +85,11 @@ class RealmSaveService: SaveServiveInterface {
         catch {
             print(error)
         }
+    }
+    
+    func getUserGroups(userId: Int, accessToken: String) -> Promise<[UserGroup]> {
+        let promise = Promise<[UserGroup]> { resolver in }
+        return promise
     }
     
     func getUserGroups() -> [UserGroup]? {
