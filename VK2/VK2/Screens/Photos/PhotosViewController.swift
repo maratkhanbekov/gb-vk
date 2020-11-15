@@ -8,6 +8,7 @@ class PhotosViewController: UIViewController {
     let vkService = VKService()
     let sessionService = SessionService()
     let dataService = RealmSaveService()
+    let photoService = PhotoService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +32,7 @@ class PhotosViewController: UIViewController {
         
         self.view = view
 
-        // Загружаем данные
-        guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
-
-        
-        vkService.getUserPhotos(userId: userId, accessToken: accessToken)
+        vkService.getUserPhotos()
             .done { [unowned self] userPhotos in
                 self.userPhotos = userPhotos
                 self.photosCollectionView?.reloadData()
@@ -55,9 +52,13 @@ extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
-
-        guard let photoUrl = URL(string: (userPhotos?[indexPath.row])!) else { return cell }
-        cell.groupImageView.load(url: photoUrl)
+        
+        guard let url = userPhotos?[indexPath.row] else { return cell }
+        
+        photoService.photo(url: url) { image in
+            cell.groupImageView.image = image
+        }
+        
         return cell
         
     }

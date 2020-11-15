@@ -12,7 +12,9 @@ import PromiseKit
 
 
 class FirebaseService: SaveServiveInterface {
-   
+    
+    let sessionService = SessionService()
+    
     let vkService = VKService()
     
     func getUserData(userId: Int) -> UserProfile? {
@@ -36,23 +38,34 @@ class FirebaseService: SaveServiveInterface {
         
     }
     
-    func getUserData(userId: Int, accessToken: String, callback: @escaping(UserProfile) -> Void) {
+    func getUserData(callback: @escaping(UserProfile) -> Void) {
+        
+        guard let userId = sessionService.getUsedId(),
+              let accessToken = sessionService.getToken() else { return }
+        
         userListRef.observeSingleEvent(of: .value) { (snapshot) in
             var output: UserProfile
             let children = snapshot.children
             
             // Поиск пользователя
             for child in children {
-                let snap = child as! DataSnapshot
-                let dict = snap.value as! [String: Any]
+                
+                guard let snap = child as? DataSnapshot,
+                      let dict = snap.value as? [String: Any] else { return }
                 
                 if userId == dict["id"] as! Int {
-                    let first_name = dict["first_name"] as! String
-                    let last_name = dict["last_name"] as! String
-                    let photo_100 = dict["photo_100"] as! String
-                    let followers_count = dict["followers_count"] as! Int
                     
-                    output = UserProfile(id: userId, first_name: first_name, last_name: last_name, photo_100: photo_100, followers_count: followers_count)
+                    guard let first_name = dict["first_name"] as? String,
+                    let last_name = dict["last_name"] as? String,
+                    let photo_100 = dict["photo_100"] as? String,
+                    let followers_count = dict["followers_count"] as? Int else { return }
+                    
+                    output = UserProfile(id: userId,
+                                         first_name: first_name,
+                                         last_name: last_name,
+                                         photo_100: photo_100,
+                                         followers_count: followers_count)
+                    
                     debugPrint("Данные User из Firebase")
                     callback(output)
                     return
@@ -60,7 +73,7 @@ class FirebaseService: SaveServiveInterface {
             }
             
             // Если не нашли, то получаем данные из ВК
-            self.vkService.getUserInfo(userId: userId, accessToken: accessToken, callback: {[weak self] userProfile in
+            self.vkService.getUserInfo(callback: {[weak self] userProfile in
                 var output: UserProfile
                 
                 // Сохраняем в базу
@@ -85,7 +98,7 @@ class FirebaseService: SaveServiveInterface {
         }
     }
     
-    func getUserGroups(userId: Int, accessToken: String) -> Promise<[UserGroup]> {
+    func getUserGroups() -> Promise<[UserGroup]> {
         let promise = Promise<[UserGroup]> { resolver in
             groupsListRef.observeSingleEvent(of: .value) { (snapshot) in
                 var output = [UserGroup]()

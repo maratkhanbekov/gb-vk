@@ -21,9 +21,9 @@ class NewsViewController: UIViewController {
         newsView.tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         
         // Загружаем данные
-        guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
+//        guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
         
-        vkService.getNewsPost(userId: userId, accessToken: accessToken, callback: { [weak self] newsPostfeed in
+        vkService.getNewsPost(callback: { [weak self] newsPostfeed in
      
             
             let parsingNewsPostOperation = ParsingNewsPostOperation(inputNewsPostFeed: newsPostfeed)
@@ -60,22 +60,7 @@ extension NewsViewController: UITableViewDataSource {
         cell.config(newsPost: newsPost)
         
         guard let postPhotoImage = cell.postPhoto.image else { return cell }
-        
-        // Создаем операцию
-        let blurImageOperation = BlurImageOperation(inputImage: postPhotoImage)
-        
-        // Выставляем действия по окончанию операции
-        blurImageOperation.completionBlock = {
-            
-            if let blurredImage = blurImageOperation.outputImage {
-                OperationQueue.main.addOperation {
-                    cell.postPhoto.image = blurredImage
-                }
-            }
-        }
-        
-        // Добавляем операцию и начинаем выполнять
-        operationQueue.addOperation(blurImageOperation)
+    
         return cell
     }
     

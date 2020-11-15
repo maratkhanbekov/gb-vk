@@ -9,6 +9,7 @@ class UserProfileViewController: UIViewController {
     let vkService = VKService()
     let sessionService = SessionService()
     let dataService = FirebaseService()
+    let photoService = PhotoService()
     
     // Data
     var userProfile: UserProfile?
@@ -25,7 +26,7 @@ class UserProfileViewController: UIViewController {
         guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
         
 
-        dataService.getUserData(userId: userId, accessToken: accessToken) { [unowned self] userProfile in
+        dataService.getUserData() { [unowned self] userProfile in
             self.userProfile = userProfile
             
             updateUserProfile()
@@ -38,8 +39,10 @@ class UserProfileViewController: UIViewController {
         DispatchQueue.main.async {
             self.userProfileView.nameLabel.text = self.userProfile?.first_name
             
-            if let photoURL = URL(string:(self.userProfile!.photo_100)) {
-                self.userProfileView.userPic.load(url: photoURL)
+            if let url = self.userProfile?.photo_100 {
+                self.photoService.photo(url: url) { [unowned self] image in
+                    self.userProfileView.userPic.image = image
+                }
             }
             
             if let followersCount = self.userProfile?.followers_count {

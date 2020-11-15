@@ -3,6 +3,7 @@ import UIKit
 class NewsTableViewCell: UITableViewCell {
     
     static var identifier = "NewsTableViewCell"
+    let photoService = PhotoService()
     
     let authorPhoto: UIImageView =  {
         let imageView = UIImageView()
@@ -136,14 +137,18 @@ class NewsTableViewCell: UITableViewCell {
         
         authorName.text = newsPost.authorName
         
-        
-        if let authorPhotoURL = URL(string: newsPost.authorPhoto) {
-            self.authorPhoto.load(url: authorPhotoURL)
+        photoService.photo(url: newsPost.authorPhoto) { [unowned self] image in
+            DispatchQueue.main.async {
+                self.authorPhoto.image = image
+            }
         }
         
-        if let postPhotoURL = URL(string: newsPost.postPhoto) {
-            self.postPhoto.load(url: postPhotoURL)
+        photoService.photo(url: newsPost.postPhoto) { [unowned self] image in
+            DispatchQueue.main.async {
+            self.postPhoto.image = image
+            }
         }
+      
         likesAmount.text = "\(newsPost.likesAmount) ❤️"
         commentsAmount.text = "\(newsPost.commentsAmount) 📝"
         viewsAmount.text = "\(newsPost.viewsAmount) 👀"
