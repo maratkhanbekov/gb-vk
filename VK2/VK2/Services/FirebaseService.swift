@@ -1,15 +1,7 @@
-//
-//  FirebaseService.swift
-//  VK2
-//
-//  Created by Marat Khanbekov on 17.10.2020.
-//  Copyright © 2020 Marat. All rights reserved.
-// 
-
 import Foundation
 import Firebase
 import PromiseKit
-
+import CodableFirebase
 
 class FirebaseService: SaveServiveInterface {
     
@@ -38,61 +30,57 @@ class FirebaseService: SaveServiveInterface {
         
     }
     
-    func getUserData(callback: @escaping(UserProfile) -> Void) {
+    func getUserData() -> Promise<UserProfile> {
         
-        guard let userId = sessionService.getUsedId(),
-              let accessToken = sessionService.getToken() else { return }
-        
-        userListRef.observeSingleEvent(of: .value) { (snapshot) in
-            var output: UserProfile
-            let children = snapshot.children
+        let promise = Promise<UserProfile> { resolver in
             
-            // Поиск пользователя
-            for child in children {
-                
-                guard let snap = child as? DataSnapshot,
-                      let dict = snap.value as? [String: Any] else { return }
-                
-                if userId == dict["id"] as! Int {
-                    
-                    guard let first_name = dict["first_name"] as? String,
-                    let last_name = dict["last_name"] as? String,
-                    let photo_100 = dict["photo_100"] as? String,
-                    let followers_count = dict["followers_count"] as? Int else { return }
-                    
-                    output = UserProfile(id: userId,
-                                         first_name: first_name,
-                                         last_name: last_name,
-                                         photo_100: photo_100,
-                                         followers_count: followers_count)
-                    
-                    debugPrint("Данные User из Firebase")
-                    callback(output)
-                    return
-                }
-            }
-            
-            // Если не нашли, то получаем данные из ВК
-            self.vkService.getUserInfo(callback: {[weak self] userProfile in
+            userListRef.observeSingleEvent(of: .value) { (snapshot) in
                 var output: UserProfile
+                let children = snapshot.children
                 
-                // Сохраняем в базу
-                self?.saveUserData(userProfile)
+                guard let userId = self.sessionService.getUsedId() else {
+                    return resolver.reject(PromiseErrors.userNotFound)
+                }
                 
-                output = UserProfile(id: userProfile.id, first_name: userProfile.first_name, last_name: userProfile.last_name, photo_100: userProfile.photo_100, followers_count: userProfile.followers_count)
+                // Поиск пользователя
+                for child in children {
+                    
+                    guard let snap = child as? DataSnapshot,
+                          let dict = snap.value as? [String: Any] else { return }
+                    
+                    if userId == dict["id"] as! Int {
+                        do {
+                            output = try FirebaseDecoder().decode(UserProfile.self, from: dict)
+                            debugPrint("Данные User из Firebase")
+                            resolver.fulfill(output)
+                        } catch {
+                            resolver.reject(PromiseErrors.userNotFound)
+                        }
+                    }
+                }
                 
-                callback(output)
-                return
-            })
-            
+                // Если не нашли, то получаем данные из ВК
+                self.vkService.getUserInfo(callback: {[weak self] userProfile in
+                    var output: UserProfile
+                    
+                    // Сохраняем в базу
+                    self?.saveUserData(userProfile)
+                    
+                    output = UserProfile(id: userProfile.id, first_name: userProfile.first_name, last_name: userProfile.last_name, photo_100: userProfile.photo_100, followers_count: userProfile.followers_count)
+                    resolver.fulfill(output)
+                })
+                
+            }
         }
+        
+        return promise
     }
     
     func saveUserGroups(_ userGroups: [UserGroup]) {
         for userGroup in userGroups {
             let value = [
                 "name": userGroup.name,
-                "photo_100": userGroup.photo_100
+                "photo_100": userGroup.photo100
             ]
             groupsListRef.childByAutoId().setValue(value)
         }

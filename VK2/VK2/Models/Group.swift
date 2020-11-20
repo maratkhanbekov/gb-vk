@@ -2,22 +2,23 @@ import Foundation
 import Realm
 import RealmSwift
 
-struct UserGroupsRootResponse: Decodable {
+struct UserGroupsRootResponse: Codable {
     let response: UserGroupsGeneralInfo
 }
 
-struct UserGroupsGeneralInfo: Decodable {
+struct UserGroupsGeneralInfo: Codable {
     let items: [UserGroup]
 }
 
-struct UserGroup: Decodable {
+struct UserGroup: Codable {
     let name: String
-    let photo_100: String
+    let photo100: String
     
     init(name: String, photo_100: String) {
         self.name = name
-        self.photo_100 = photo_100
+        self.photo100 = photo_100
     }
+    
 }
 
 class UserGroupsObject: Object {

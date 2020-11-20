@@ -2,6 +2,8 @@ import UIKit
 
 class UserProfileView: UIView {
     
+    let bgcolor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    
     var userPic = UIImageView()
     var nameLabel = UILabel()
     var friendsLabel = UILabel()
@@ -36,23 +38,27 @@ class UserProfileView: UIView {
     }
     
     func setup() {
-        backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        
+        backgroundColor = bgcolor
         
         userPic.image = UIImage(named: "spongeBob")
         userPic.layer.cornerRadius = 50
         userPic.clipsToBounds = true
         userPic.translatesAutoresizingMaskIntoConstraints = false
+        userPic.backgroundColor = bgcolor
         
         nameLabel.text = "Sponge Bob"
         nameLabel.textColor = .white
         nameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         nameLabel.sizeToFit()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.backgroundColor = bgcolor
         
         friendsLabel.text = "\(friendsCount) друзей"
         friendsLabel.textColor = .white
         friendsLabel.font.withSize(12)
         friendsLabel.translatesAutoresizingMaskIntoConstraints = false
+        friendsLabel.backgroundColor = bgcolor
         
         addSubview(userPic)
         addSubview(nameLabel)

@@ -8,12 +8,14 @@ class NewsTableViewCell: UITableViewCell {
     let authorPhoto: UIImageView =  {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .white
         return imageView
     }()
     
     let authorName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         return label
     }()
     
@@ -21,24 +23,28 @@ class NewsTableViewCell: UITableViewCell {
     let likesAmount: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         return label
     }()
     
     let commentsAmount: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         return label
     }()
     
     let viewsAmount: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         return label
     }()
     
     let repostsAmount: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         return label
     }()
     
@@ -47,12 +53,14 @@ class NewsTableViewCell: UITableViewCell {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.lineBreakMode = .byWordWrapping
         textField.numberOfLines = 3
+        textField.backgroundColor = .white
         return textField
     }()
     
     let postPhoto: UIImageView =  {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .white
         return imageView
     }()
     
@@ -145,10 +153,10 @@ class NewsTableViewCell: UITableViewCell {
         
         photoService.photo(url: newsPost.postPhoto) { [unowned self] image in
             DispatchQueue.main.async {
-            self.postPhoto.image = image
+                self.postPhoto.image = image
             }
         }
-      
+        
         likesAmount.text = "\(newsPost.likesAmount) ❤️"
         commentsAmount.text = "\(newsPost.commentsAmount) 📝"
         viewsAmount.text = "\(newsPost.viewsAmount) 👀"

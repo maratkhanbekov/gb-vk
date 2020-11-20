@@ -20,19 +20,16 @@ class NewsViewController: UIViewController {
         newsView.tableView.dataSource = self
         newsView.tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         
-        // Загружаем данные
-//        guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
-        
         vkService.getNewsPost(callback: { [weak self] newsPostfeed in
-     
+            
             
             let parsingNewsPostOperation = ParsingNewsPostOperation(inputNewsPostFeed: newsPostfeed)
             parsingNewsPostOperation.completionBlock =  {
-
+                
                 if let newsPosts = parsingNewsPostOperation.outputNewsPosts {
-                self?.newsPosts = newsPosts
+                    self?.newsPosts = newsPosts
                     OperationQueue.main.addOperation {
-                    self?.newsView.tableView.reloadData()
+                        self?.newsView.tableView.reloadData()
                     }
                 }
             }
@@ -60,13 +57,9 @@ extension NewsViewController: UITableViewDataSource {
         cell.config(newsPost: newsPost)
         
         guard let postPhotoImage = cell.postPhoto.image else { return cell }
-    
+        
         return cell
     }
-    
-    
-    
-    
 }
 
 extension NewsViewController: UITableViewDelegate {}

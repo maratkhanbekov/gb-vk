@@ -21,6 +21,7 @@
 		5EAF6BD52554282D00BCD492 /* NewsPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAF6BD42554282D00BCD492 /* NewsPhoto.swift */; };
 		5EAF6C092556BF0500BCD492 /* BlurImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAF6C082556BF0500BCD492 /* BlurImageOperation.swift */; };
 		5EAF6C0C25570FB400BCD492 /* ParsingNewsPostOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAF6C0B25570FB400BCD492 /* ParsingNewsPostOperation.swift */; };
+		5ED65DF92566FF05007B6756 /* PromiseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED65DF82566FF05007B6756 /* PromiseErrors.swift */; };
 		5EDD0D94253383F300953744 /* RealmSaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D93253383F300953744 /* RealmSaveService.swift */; };
 		5EDD0D972533854100953744 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D962533854100953744 /* Protocols.swift */; };
 		5EDD0D9C2534A1EE00953744 /* GroupsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD0D9B2534A1EE00953744 /* GroupsTableView.swift */; };
@@ -65,6 +66,7 @@
 		5EAF6BD42554282D00BCD492 /* NewsPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhoto.swift; sourceTree = "<group>"; };
 		5EAF6C082556BF0500BCD492 /* BlurImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurImageOperation.swift; sourceTree = "<group>"; };
 		5EAF6C0B25570FB400BCD492 /* ParsingNewsPostOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingNewsPostOperation.swift; sourceTree = "<group>"; };
+		5ED65DF82566FF05007B6756 /* PromiseErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromiseErrors.swift; sourceTree = "<group>"; };
 		5EDD0D93253383F300953744 /* RealmSaveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSaveService.swift; sourceTree = "<group>"; };
 		5EDD0D962533854100953744 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		5EDD0D9B2534A1EE00953744 /* GroupsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableView.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				5EDD0D962533854100953744 /* Protocols.swift */,
 				5E13FB8C253ADA380028470F /* FirebaseService.swift */,
 				5E64C6F0255F015A00118779 /* PhotoService.swift */,
+				5ED65DF82566FF05007B6756 /* PromiseErrors.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				5EDD0D9C2534A1EE00953744 /* GroupsTableView.swift in Sources */,
 				79E8AFB6251D149C009A9A5D /* SessionManager.swift in Sources */,
 				79F9B571251B91ED0029C53C /* AppDelegate.swift in Sources */,
+				5ED65DF92566FF05007B6756 /* PromiseErrors.swift in Sources */,
 				5EFF32B8252249C40035E1E8 /* UserProfileViewController.swift in Sources */,
 				5EFF32E7252510730035E1E8 /* PhotosCollectionViewCell.swift in Sources */,
 				5E80CAE5254EBF5500BE0ABF /* NewsPost.swift in Sources */,
