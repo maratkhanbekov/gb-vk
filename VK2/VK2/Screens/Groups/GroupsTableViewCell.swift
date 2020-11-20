@@ -2,6 +2,7 @@ import UIKit
 
 class GroupsTableViewCell: UITableViewCell {
     static var identifier = "GroupsTableViewCell"
+    let photoService = PhotoService()
     
     let groupImageView: UIImageView = {
         let img = UIImageView()
@@ -59,8 +60,11 @@ class GroupsTableViewCell: UITableViewCell {
         setNeedsUpdateConstraints()
     }
     
-    func config(userGroupName: String, photoURL: URL) {
+    func config(userGroupName: String, url: String) {
         groupName.text = userGroupName
-        groupImageView.load(url: photoURL)
+//        groupImageView.load(url: photoURL)
+        photoService.photo(url: url) { [unowned self] image in
+            self.groupImageView.image = image
+        }
     }
 }

@@ -17,11 +17,12 @@ protocol RealmOutput: class {
 
 
 class RealmSaveService: SaveServiveInterface {
-    func getUserGroups(userId: Int, accessToken: String, callback: @escaping ([UserGroup]) -> Void) {
+    
+    func getUserGroups(callback: @escaping ([UserGroup]) -> Void) {
         return
     }
     
-    func getUserData(userId: Int, accessToken: String, callback: @escaping (UserProfile) -> Void) {
+    func getUserData(callback: @escaping (UserProfile) -> Void) {
     }
     
 
@@ -87,7 +88,7 @@ class RealmSaveService: SaveServiveInterface {
         }
     }
     
-    func getUserGroups(userId: Int, accessToken: String) -> Promise<[UserGroup]> {
+    func getUserGroups() -> Promise<[UserGroup]> {
         let promise = Promise<[UserGroup]> { resolver in }
         return promise
     }

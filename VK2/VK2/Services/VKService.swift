@@ -7,13 +7,26 @@ class VKService {
     var baseUrl = "https://api.vk.com/method/"
     let v = 5.124
     
-    func getNewsPost(userId: Int, accessToken: String, callback: @escaping (NewsPostFeed) -> Void) {
+    private let userId: Int = {
+        let sessionService = SessionService()
+        guard let id = sessionService.getUsedId() else { return 0 }
+        return id
+    }()
+    
+    private let accessToken: String = {
+        let sessionService = SessionService()
+        guard let token = sessionService.getToken() else { return "" }
+        return token
+    }()
+    
+    func getNewsPost(callback: @escaping (NewsPostFeed) -> Void) {
+        
         let methodName = "newsfeed.get"
         let urlString = baseUrl + methodName
         
         let parameters: Parameters = [
-            "owner_id": userId,
-            "access_token": accessToken,
+            "owner_id": self.userId,
+            "access_token": self.accessToken,
             "v": v,
             "filters": "post",
             "count": 5,
@@ -28,13 +41,14 @@ class VKService {
     }
     
     
-    func getNewsPhoto(userId: Int, accessToken: String, callback: @escaping (NewsPhotoFeed) -> Void) {
+    func getNewsPhoto(callback: @escaping (NewsPhotoFeed) -> Void) {
+        
         let methodName = "newsfeed.get"
         let urlString = baseUrl + methodName
         
         let parameters: Parameters = [
-            "owner_id": userId,
-            "access_token": accessToken,
+            "owner_id": self.userId,
+            "access_token": self.accessToken,
             "v": v,
             "filters": "photos",
             "count": 3,
@@ -49,13 +63,13 @@ class VKService {
     }
     
     
-    func getUserPhotos(userId: Int, accessToken: String) -> Promise<[String]> {
+    func getUserPhotos() -> Promise<[String]> {
         let methodName = "photos.getAll"
         let urlString = baseUrl + methodName
         
         let parameters: Parameters = [
-            "owner_id": userId,
-            "access_token": accessToken,
+            "owner_id": self.userId,
+            "access_token": self.accessToken,
             "v": v,
             "extended": 1,
             "count": 10
@@ -82,12 +96,12 @@ class VKService {
         return promise
     }
     
-    func getUserGroups(userId: Int, accessToken: String) -> Promise<[UserGroup]> {
+    func getUserGroups() -> Promise<[UserGroup]> {
         let methodName = "groups.get"
         let urlString = baseUrl + methodName
         let parameters: Parameters = [
-            "users_id": userId,
-            "access_token": accessToken,
+            "users_id": self.userId,
+            "access_token": self.accessToken,
             "v": v,
             "extended": 1,
             "fields": "name, photo_100"
@@ -117,7 +131,7 @@ class VKService {
         
     }
     
-    func getUserInfo(userId: Int, accessToken: String, callback: @escaping (UserProfile) -> Void) {
+    func getUserInfo(callback: @escaping (UserProfile) -> Void) {
         let methodName = "users.get"
         let urlString = baseUrl + methodName
         
@@ -146,34 +160,4 @@ class VKService {
             callback(userProfileUnWrapped)
         }
     }
-
 }
-
-// Сохранение данных в Realm
-//    func saveUserData(_ userProfile: UserProfile) {
-//        do {
-//
-//            // получаем объект класса Realm для доступа к хранилищу.
-//            let realm = try Realm()
-//            // начнем сеанс записи
-//            realm.beginWrite()
-//            //  добавим объект
-//            realm.add(userProfile)
-//            // завершим сеанс записи
-//            try realm.commitWrite()
-//            debugPrint("Данные получены из vk.com и сохранены")
-//        }
-//        catch {
-//            print(error)
-//        }
-//    }
-
-// Чтение данных из Realm
-//    func getUserData() -> UserProfile? {
-//        print(Realm.Configuration.defaultConfiguration.fileURL!)
-//        debugPrint("Данные получены из Realm")
-//        let realm = try! Realm()
-//        guard let userProfile = realm.objects(UserProfileObject.self).first else { return nil }
-//        return userProfile
-//
-//    }

@@ -19,11 +19,7 @@ class GroupsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Достаем ключи для авторизации
-        guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
-        
-
-        dataService.getUserGroups(userId: userId, accessToken: accessToken)
+        dataService.getUserGroups()
             .done { userGroups in
                 self.userGroups = userGroups
                 self.groupsTableView.tableView.reloadData()

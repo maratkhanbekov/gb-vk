@@ -16,9 +16,7 @@ extension GroupsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupsTableViewCell.identifier, for: indexPath) as! GroupsTableViewCell
         
         guard let userGroup = userGroups?[indexPath.row] else { return cell }
-        guard let photoUrl = URL(string: userGroup.photo_100) else { return cell }
-
-        cell.config(userGroupName: userGroup.name, photoURL: photoUrl)
+        cell.config(userGroupName: userGroup.name, url: userGroup.photo_100)
         
         return cell
     }
