@@ -5,8 +5,8 @@ class GroupsTableViewCell: UITableViewCell {
     let photoService = PhotoService()
     let bgColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
-    let groupImageView: UIImageView = {
-        let img = UIImageView()
+    let groupImageView: AsyncImageView = {
+        let img = AsyncImageView()
         img.image = UIImage(named: "spongeBob")
         img.contentMode = .scaleAspectFill
         img.translatesAutoresizingMaskIntoConstraints = false
