@@ -3,6 +3,7 @@ import UIKit
 class GroupsTableViewCell: UITableViewCell {
     static var identifier = "GroupsTableViewCell"
     let photoService = PhotoService()
+    let bgColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
     let groupImageView: UIImageView = {
         let img = UIImageView()
@@ -54,7 +55,9 @@ class GroupsTableViewCell: UITableViewCell {
     }
     
     func setup() {
-        backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        
+        backgroundColor = bgColor
+        
         self.contentView.addSubview(groupImageView)
         self.contentView.addSubview(groupName)
         setNeedsUpdateConstraints()
@@ -62,7 +65,10 @@ class GroupsTableViewCell: UITableViewCell {
     
     func config(userGroupName: String, url: String) {
         groupName.text = userGroupName
-//        groupImageView.load(url: photoURL)
+        
+        groupName.backgroundColor = bgColor
+        groupImageView.backgroundColor = bgColor
+        
         photoService.photo(url: url) { [unowned self] image in
             self.groupImageView.image = image
         }

@@ -1,5 +1,6 @@
 import UIKit
 import RealmSwift
+import PromiseKit
 
 class UserProfileViewController: UIViewController {
     
@@ -21,16 +22,13 @@ class UserProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Достаем ключи для авторизации
-        guard let userId = sessionService.getUsedId(), let accessToken = sessionService.getToken() else { return }
-        
-
-        dataService.getUserData() { [unowned self] userProfile in
+    
+        firstly {
+            dataService.getUserData()
+        }
+        .done { userProfile in
             self.userProfile = userProfile
-            
-            updateUserProfile()
-            
+            self.updateUserProfile()
         }
     }
     

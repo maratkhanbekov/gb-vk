@@ -22,7 +22,9 @@ class RealmSaveService: SaveServiveInterface {
         return
     }
     
-    func getUserData(callback: @escaping (UserProfile) -> Void) {
+    func getUserData() -> Promise<UserProfile> {
+        let promise = Promise<UserProfile> {_ in }
+        return promise
     }
     
 
@@ -75,7 +77,7 @@ class RealmSaveService: SaveServiveInterface {
             userGroups.forEach({ userGroup in
                 let userGroupObject = UserGroupObject()
                 userGroupObject.name = userGroup.name
-                userGroupObject.photo_100 = userGroup.photo_100
+                userGroupObject.photo_100 = userGroup.photo100
                 userGroupsObject.groups.append(userGroupObject)
             })
             realm.beginWrite()
