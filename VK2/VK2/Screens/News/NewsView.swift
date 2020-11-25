@@ -4,8 +4,14 @@ class NewsView: UIView {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 1.0
+        tableView.backgroundColor = .white
         return tableView
     }()
+    
+    // Инициализируем и присваиваем сущность UIRefreshControl
+    let refreshControl = UIRefreshControl()
     
     init() {
         super.init(frame: .zero)
@@ -27,11 +33,20 @@ class NewsView: UIView {
         super.updateConstraints()
     }
     
-
+    
     func setup() {
         backgroundColor = .red
         addSubview(tableView)
+        setupRefreshControl()
         setNeedsUpdateConstraints()
+    }
+    
+    private func setupRefreshControl() {
+        // Цвет спиннера
+        refreshControl.tintColor = .red
+        // отображаемый им текст
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing...")
+        tableView.refreshControl = refreshControl
     }
     
 }

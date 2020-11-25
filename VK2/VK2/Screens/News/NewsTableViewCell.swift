@@ -5,6 +5,9 @@ class NewsTableViewCell: UITableViewCell {
     static var identifier = "NewsTableViewCell"
     let photoService = PhotoService()
     
+    var photoWidth: CGFloat = 0
+    var photoHeight: CGFloat = 0
+    
     let authorPhoto: UIImageView =  {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +64,7 @@ class NewsTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .white
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -77,66 +81,69 @@ class NewsTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         
+        
         NSLayoutConstraint.activate([
-            authorPhoto.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            authorPhoto.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             authorPhoto.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             authorPhoto.heightAnchor.constraint(equalToConstant: 30),
             authorPhoto.widthAnchor.constraint(equalToConstant: 30)
         ])
-        
+
         NSLayoutConstraint.activate([
             authorName.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             authorName.leadingAnchor.constraint(equalTo: authorPhoto.leadingAnchor, constant: 50),
         ])
         
         NSLayoutConstraint.activate([
-            postPhoto.centerXAnchor.constraint(equalTo: centerXAnchor),
-            postPhoto.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
-            postPhoto.widthAnchor.constraint(equalToConstant: frame.width),
-            postPhoto.heightAnchor.constraint(equalToConstant: frame.width),
-            
+            postPhoto.topAnchor.constraint(equalTo: authorPhoto.bottomAnchor, constant: 15),
+            postPhoto.leadingAnchor.constraint(equalTo: leadingAnchor),
+            postPhoto.widthAnchor.constraint(equalToConstant: photoWidth),
+            postPhoto.heightAnchor.constraint(equalToConstant: photoHeight)
+
         ])
         
         NSLayoutConstraint.activate([
-            postText.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
-            postText.centerXAnchor.constraint(equalTo: centerXAnchor),
+            postText.topAnchor.constraint(equalTo: postPhoto.bottomAnchor, constant: 10),
             postText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             postText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
-        
+
         NSLayoutConstraint.activate([
-            likesAmount.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            likesAmount.topAnchor.constraint(equalTo: postText.bottomAnchor, constant: 15),
             likesAmount.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15)
         ])
-        
+
         NSLayoutConstraint.activate([
-            commentsAmount.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            commentsAmount.topAnchor.constraint(equalTo: postText.bottomAnchor, constant: 15),
             commentsAmount.leadingAnchor.constraint(equalTo: likesAmount.trailingAnchor, constant: 15)
         ])
-        
+
         NSLayoutConstraint.activate([
-            viewsAmount.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            viewsAmount.topAnchor.constraint(equalTo: postText.bottomAnchor, constant: 15),
             viewsAmount.leadingAnchor.constraint(equalTo: commentsAmount.trailingAnchor, constant: 15)
         ])
-        
+
         NSLayoutConstraint.activate([
-            repostsAmount.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            repostsAmount.leadingAnchor.constraint(equalTo: viewsAmount.trailingAnchor, constant: 15)
+            repostsAmount.topAnchor.constraint(equalTo: postText.bottomAnchor, constant: 15),
+            repostsAmount.leadingAnchor.constraint(equalTo: viewsAmount.trailingAnchor, constant: 15),
+            repostsAmount.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
-        
+
         super.updateConstraints()
     }
     
     
     func setup() {
-        addSubview(authorPhoto)
-        addSubview(authorName)
-        addSubview(postPhoto)
-        addSubview(postText)
-        addSubview(likesAmount)
-        addSubview(commentsAmount)
-        addSubview(viewsAmount)
-        addSubview(repostsAmount)
+        contentView.addSubview(authorPhoto)
+        contentView.addSubview(authorName)
+        contentView.addSubview(postPhoto)
+        
+        // Вместо addSubview(postText)
+        contentView.addSubview(postText)
+        contentView.addSubview(likesAmount)
+        contentView.addSubview(commentsAmount)
+        contentView.addSubview(viewsAmount)
+        contentView.addSubview(repostsAmount)
         
         setNeedsUpdateConstraints()
     }
@@ -148,6 +155,7 @@ class NewsTableViewCell: UITableViewCell {
         photoService.photo(url: newsPost.authorPhoto) { [unowned self] image in
             DispatchQueue.main.async {
                 self.authorPhoto.image = image
+                
             }
         }
         
@@ -162,5 +170,13 @@ class NewsTableViewCell: UITableViewCell {
         viewsAmount.text = "\(newsPost.viewsAmount) 👀"
         repostsAmount.text = "\(newsPost.repostsAmount) ➕"
         postText.text = (newsPost.postText)
+ 
+        
+        photoWidth = contentView.bounds.width
+        
+        photoHeight = CGFloat(photoWidth) * newsPost.aspectRatio
+        
+        setNeedsUpdateConstraints()
+        
     }
 }

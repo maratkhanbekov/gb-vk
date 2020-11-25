@@ -1,7 +1,9 @@
 import Foundation
+import UIKit
 
 struct NewsPosts {
-    let posts: [NewsPost]
+    var posts: [NewsPost]
+    let nextFrom: String?
 }
 
 struct NewsPost {
@@ -14,6 +16,15 @@ struct NewsPost {
     let postText: String
     let postAttachments: [String]
     let postPhoto: String
+    let postPhotoHeight: Int
+    let postPhotoWidth: Int
+    
+    var aspectRatio: CGFloat {
+        if postPhotoWidth == 0 {
+            return 0
+        }
+        return CGFloat(postPhotoHeight)/CGFloat(postPhotoWidth)
+    }
 }
 
 
@@ -27,9 +38,12 @@ struct PostResponse: Codable {
     let items: [Item]?
     let profiles: [Profile]?
     let groups: [Group]?
+    
+    let nextFrom: String
 
     enum CodingKeys: String, CodingKey {
         case items, profiles, groups
+        case nextFrom = "next_from"
     }
 }
 
