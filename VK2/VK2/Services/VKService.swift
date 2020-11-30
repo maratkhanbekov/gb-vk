@@ -19,48 +19,86 @@ class VKService {
         return token
     }()
     
-    func getNewsPost(callback: @escaping (NewsPostFeed) -> Void) {
+    func getNewsPost(startFrom: String? = nil) -> Promise<NewsPostFeed> {
         
-        let methodName = "newsfeed.get"
-        let urlString = baseUrl + methodName
-        
-        let parameters: Parameters = [
-            "owner_id": self.userId,
-            "access_token": self.accessToken,
-            "v": v,
-            "filters": "post",
-            "count": 5,
-        ]
-        
-        AF.request(urlString, method: .get, parameters: parameters).response { response in
-            print(response.request)
-            let decoder = JSONDecoder()
-            let newsPostFeed: NewsPostFeed = try! decoder.decode(NewsPostFeed.self, from: response.data!)
-            callback(newsPostFeed)
+        let promise = Promise<NewsPostFeed> { resolver in
+            let methodName = "newsfeed.get"
+            let urlString = baseUrl + methodName
+            let parameters: Parameters
+            
+            if let startFrom = startFrom {
+                parameters = [
+                    "owner_id": self.userId,
+                    "access_token": self.accessToken,
+                    "v": v,
+                    "filters": "post",
+                    "count": 10,
+                    "start_from": startFrom
+                ]
+                
+            }
+            else {
+                parameters = [
+                    "owner_id": self.userId,
+                    "access_token": self.accessToken,
+                    "v": v,
+                    "filters": "post",
+                    "count": 10,
+                ]
+            }
+            
+            
+            
+            AF.request(urlString, method: .get, parameters: parameters).response { response in
+                
+                
+                print(response.request)
+                let decoder = JSONDecoder()
+                do {
+                    
+                    guard let data = response.data else {
+                        resolver.reject(PromiseErrors.newsNotFound)
+                        return }
+                    
+                    let newsPostFeed: NewsPostFeed = try decoder.decode(NewsPostFeed.self, from: data)
+
+                    resolver.fulfill(newsPostFeed)
+                }
+                catch {
+                    resolver.reject(PromiseErrors.newsNotFound)
+                }
+            }
         }
+        
+        return promise
+        
+        
     }
     
     
-    func getNewsPhoto(callback: @escaping (NewsPhotoFeed) -> Void) {
-        
-        let methodName = "newsfeed.get"
-        let urlString = baseUrl + methodName
-        
-        let parameters: Parameters = [
-            "owner_id": self.userId,
-            "access_token": self.accessToken,
-            "v": v,
-            "filters": "photos",
-            "count": 3,
-        ]
-        
-        AF.request(urlString, method: .get, parameters: parameters).response { response in
-            print(response.request)
-            let decoder = JSONDecoder()
-            let newsPhotoFeed: NewsPhotoFeed = try! decoder.decode(NewsPhotoFeed.self, from: response.data!)
-            callback(newsPhotoFeed)
-        }
-    }
+//    func getNewsPhoto(callback: @escaping (NewsPhotoFeed) -> Void) {
+//
+//        let methodName = "newsfeed.get"
+//        let urlString = baseUrl + methodName
+//
+//        let parameters: Parameters = [
+//            "owner_id": self.userId,
+//            "access_token": self.accessToken,
+//            "v": v,
+//            "filters": "photos",
+//            "count": 3,
+//        ]
+//
+//        AF.request(urlString, method: .get, parameters: parameters).response { response in
+//            print(response.request)
+//            let decoder = JSONDecoder()
+//            let newsPhotoFeed: NewsPhotoFeed = try! decoder.decode(NewsPhotoFeed.self, from: response.data!)
+//            callback(newsPhotoFeed)
+//        }
+//    }
+    
+    
+    
     
     
     func getUserPhotos() -> Promise<[String]> {

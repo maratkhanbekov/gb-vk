@@ -17,6 +17,7 @@ class ParsingNewsPostOperation: Operation {
     private func parse() -> NewsPosts {
         
         var posts = [NewsPost]()
+        let nextFrom = inputNewsPostFeed.response?.nextFrom
         
         inputNewsPostFeed.response?.items?.forEach { inputNewsPost in
         
@@ -30,13 +31,18 @@ class ParsingNewsPostOperation: Operation {
             let repostsAmount = Int(inputNewsPost.reposts?.count ?? 0)
             let postText = inputNewsPost.text ?? ""
             let postAttachments = [""]
+            
             let postPhoto = inputNewsPost.attachments?.first?.photo?.sizes?.last?.url ?? ""
+            let postPhotoHeight = inputNewsPost.attachments?.first?.photo?.sizes?.last?.height ?? 0
+            let postPhotoWidth = inputNewsPost.attachments?.first?.photo?.sizes?.last?.width ?? 0
+            
             debugPrint(postPhoto)
-            let newsPost = NewsPost(authorPhoto: authorPhoto, authorName: authorName, likesAmount: likesAmount, commentsAmount: commentsAmount, viewsAmount: viewsAmount, repostsAmount: repostsAmount, postText: postText, postAttachments: postAttachments, postPhoto: postPhoto)
+            
+            let newsPost = NewsPost(authorPhoto: authorPhoto, authorName: authorName, likesAmount: likesAmount, commentsAmount: commentsAmount, viewsAmount: viewsAmount, repostsAmount: repostsAmount, postText: postText, postAttachments: postAttachments, postPhoto: postPhoto, postPhotoHeight: postPhotoHeight, postPhotoWidth: postPhotoWidth)
             posts.append(newsPost)
         }
         
-        let newsPosts = NewsPosts(posts: posts)
+        let newsPosts = NewsPosts(posts: posts, nextFrom: nextFrom)
         return newsPosts
     }
 }
